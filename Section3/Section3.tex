@@ -1,0 +1,319 @@
+\section{Proximity Filters}
+\label{proxfilters}
+	
+\begin{definition}
+	Let \( (X,\ll) \) be a proximity space.  A \defn{round filter} on \( X \) is a filter \( \cF \) on \( X \) such that for all \( A \in \cF \), there is a \( B \in \cF \) such that \( B \ll A \).
+\end{definition}
+
+\begin{definition}
+	Let \( (X,\ll) \) be a proximity space.  A maximal round filter on \( X \) is called an \defn{end}.  We denote the set of all ends on \( X \) as \( \End(X) \).
+\end{definition}
+
+\begin{proposition}
+	\label{roundinend}
+	Let \( (X,\ll) \) be a proximity space.  Every round filter on \( X \) is contained in an end.
+\end{proposition}
+\begin{proof}
+	Let \( \cF \) be a round filter on \( X \).  Define \( \fA = \{ \cG: \cF \subseteq \cG \} \).  Note that \( \fA \) is partially ordered by set inclusion.  Let \( \{ \cG_i \}_{i \in I} \) be a chain in \( \fA \).  Cleary \( \bigcup_{i \in I} \cG_i \) is a filter.  Let \( A \in \bigcup_{i \in I} \cG_i \).  Then \( A \in \cG_j \) for some \( j \in I \).  As \( \cG_j \) is a round filter, there is a \( B \subseteq X \) such that \( B \ll A \) and \( B \in \cG_j \).  So \( B \in \bigcup_{i \in I} \cG_i \).  Therefore, \( \bigcup_{i \in I} \cG_i \) is round.  It is also an upper bound on the chain \( \{ \cG_i \}_{i \in I} \).  By Zorn's Lemma, \( \fA \) has an upper bound \( \cE \).  Clearly \( \cF \in \cE \) and \( \cE \) is an end.
+\end{proof}
+
+\begin{lemma}
+	\label{Ground}
+	Let \( (X, \ll) \) be a proximity space, \( \cF \) a round filter on \( X \), and \( A \subseteq X \) such that \( A \cap F \neq \emptyset \) for all \( F \in \cF \).  Then the set
+	\[ \cG = \{ C \subseteq X : \exists F \in \cF, A \cap F \ll C \} \]
+	is a round filter.
+\end{lemma}
+\begin{proof}
+	First, we verify the three filter axioms.
+
+	By way of contradiction, suppose \( \emptyset \in \cG \).  Then there is a \( B \in \cF \) such that \( A \cap B \ll \emptyset \).  But then \( A \cap B = \emptyset \), a contradiction.
+	
+	Suppose \( B,C \in \cG \).  Then there are \( D,E \in \cF \) such that \( A \cap D \ll B \) and \( A \cap E \ll C \).  By \ref{llint}, \( A \cap D \cap E \ll B \cap C \).  But \( D \cap E \in \cF \) so \( B \cap C \in \cG \).
+	
+	Suppose \( B \in \cG \) and \( C \subseteq X \) such that \( B \subseteq C \).  Then there is an \( D \in \cF \) such that \( A \cap D \ll B \subseteq C \).  So \( A \cap D \ll C \).  Therefore \( C \in \cG \).
+	
+	Now, to show \( \cG \) is round, suppose \( B \in \cG \).  Then there is a \( C \in \cF \) such that \( A \cap C \ll B \).  By (Q5), there is a \( D \subseteq X \) such that \( A \cap C \ll D \ll C \).  So \( D \in \cG \) and \( D \ll B \).
+\end{proof}
+
+\begin{theorem}
+	\label{endllin}
+	Let \( (X,\sll) \) be a proximity space and \( \cF \) a round filter on \( X \).  Then \( \cF \) is an end if and only if, for all \( A,B \subseteq X \), \( A \ll B \) implies \( X \setminus A \in \cF \) or \( B \in \cF \).
+\end{theorem}
+\begin{proof}
+	Suppose \( \cF \) is an end and \( A \ll B \).  We will proceed in two cases.
+	
+	\prooflabel{Case 1}
+	Suppose \( F \cap A \neq \emptyset \) for all \( F \in \cF \).  By \ref{Ground}, \( \cG = \{ C \subseteq X : \exists F \in \cF, A \cap F \ll C \} \) is a round filter.  Let \( F \in \cF \).  Since \( \cF \) is round, there is a \( D \in \cF \) such that \( D \ll F \).  Hence \( A \cap D \ll F \).  Therefore, \( F \in \cG \).  So \( \cF \subseteq \cG \).  But, by the hypothesis, \( \cF \) is an end, so \( \cF = \cG \).  Now, \( A \ll B \) implies \( A \cap F \ll B \) for all \( F \in \cF \).  Hence \( B \in \cG \) and thus \( B \in \cF \).
+	
+	\prooflabel{Case 2}
+	Now suppose there is an \( F \in \cF \) such that \( F \cap A = \emptyset \).  Then \( F \subseteq X \setminus A \).  So \( X \setminus A \in \cF \).
+
+	Conversely, suppose \( \cF \) is a round filter and \( A \ll B \) implies \( X \setminus A \in \cF \) or \( B \in \cF \).  By way of contradiction, suppose there is a round filter \( \cG \) such that \( \cF \subset \cG \).  Take \( G \in \cG \setminus \cF \).  Since \( \cG \) is round, there is an \( H \in \cG \) such that \( H \ll G \).  By the hypothesis, \( X \setminus H \in \cF \) or \( G \in \cF \).  But \( G \not\in \cF \) by how we chose it, so it must be that \( X \setminus H \in \cF \).  Thus \( X \setminus H \in \cG \).  But also \( H \in \cG \), so \( \emptyset = (X \setminus H) \cap H \in \cG \), a contradiction.
+\end{proof}
+
+\begin{theorem}
+	\label{Nend}
+	Let \( X \) be a Tychonoff space and \( \ll \) a proximity on \( X \) compatible with \( \tau(X) \).  Then for all \( p \in X \), \( \cN(p) \) is an end.
+\end{theorem}
+\begin{proof}
+	It is trivial to show that \( \cN(p) \) is a filter.  To show it is round, take \( V \in \cN(p) \).  Then there is a \( U \in \tau(\ll) \) such that \( p \in U \subseteq V \).  By \ref{deltaallin}, \( p \nnear X \setminus U \).  Thus \( p \ll U \).  By \ref{llinsertopen}, there is a \( W \in \tau(\ll) \) such that \( p \ll W \ll U \).  It is clear that \( W \in \cN(p) \) and thus \( \cN(p) \) is round.
+	
+	Now, we will show that \( \cN(p) \) is an end.  Let \( A,B \subseteq X \) such that \( A \ll B \).  Then there is a \( C \subseteq X \) such that \( A \ll C \ll B \).  Either \( p \in C \) or \( p \in X \setminus C \).
+	
+	If \( p \in C \) then by \ref{llclint}, \( C \subseteq \cl{C} \ll \int{B} \).  So \( x \in \int{B} \) and thus \( B \in \cN(p) \).
+	
+	If \( p \in X \setminus C \), then since \( A \ll C \), \( X \setminus C \ll X \setminus A \).  By \ref{llclint}, \( \cl(X \setminus C) \subseteq \int(X \setminus A) \) and so \( p \in \int(X \setminus A) \).  Therefore, \( X \setminus A \in \cN(p) \).
+	
+	By \ref{endllin}, \( \cN(p) \) is an end.
+\end{proof}
+
+\begin{definition}
+	Let \( (X,\ll) \) be a proximity space and \( \cF \) a filter on \( X \).  The \defn{round hull} of \( \cF \) is \( \rnd(\cF) = \{ A \subseteq X: \exists F \in \cF, F \ll A \} \).
+\end{definition}
+
+\begin{proposition}
+	\label{rndround}
+	Let \( (X,\ll) \) be a proximity space and \( \cF \) a filter on \( X \).  Then \( \rnd(\cF) \) is a round filter and \( \rnd(\cF) \subseteq \cF \).
+\end{proposition}
+\begin{proof}
+	Let \( \cF \) be a filter on \( X \).  First, we will show that \( \rnd(\cF) \) is a filter.
+	
+	Suppose, by way of contradiction, that \( \emptyset \in \rnd(\cF) \).  Then there is an \( F \in \cF \) such that \( F \ll \emptyset \).  But then \( \emptyset = F \in \cF \), a contradiction.
+	
+	Let \( H,I \in \rnd(\cF) \).  Then there exist \( F,G \in \cF \) such that \( F \ll H \) and \( G \ll I \).  By \ref{llint}, \( F \cap G \ll H \cap I \).  Since \( F \cap G \in \cF \) then \( H \cap I \in \rnd(\cF) \).
+	
+	Let \( H \in \rnd(\cF) \) and \( A \subseteq X \) such that \( H \subseteq A \).  Then there is an \( F \in \cF \) such that \( F \ll H \).  So \( F \ll A \).  Hence \( A \in \rnd(\cF) \).
+	
+	To show \( \rnd(\cF) \) is round, take \( H \in \rnd(\cF) \).  Then there is an \( F \in \cF \) such that \( F \ll H \).  So there is an \( A \subseteq X \) such that \( F \ll A \ll H \).  Then \( A \in \rnd(\cF) \) and \( A \ll H \).  So \( \rnd(\cF) \) is round.
+	
+	Now, we will show containment.  Let \( F \in \rnd(\cF) \).  Then there is a \( G \in \cF \) such that \( G \ll F \).  So \( G \in \cF \) and \( G \subseteq F \) implying \( F \in \cF \).
+\end{proof}
+
+\begin{theorem}
+	Let \( (X,\ll) \) be a proximity space and \( \cU \) an ultrafilter on \( X \).  Then \( \cU \) contains a unique end, namely \( \rnd(\cU) \).
+\end{theorem}
+\begin{proof}
+	Suppose \( \cU \) is an ultrafilter on \( X \).
+	
+	First, we will show that \( \rnd(\cU) \) is an end.  By \ref{rndround}, \( \rnd(\cU) \) is a round filter and \( \rnd(\cU) \subseteq \cU \).  We need to show it is maximal.  Let \( A,B \subseteq X \) such that \( A \ll B \).  Then there is a \( C \subseteq X \) such that \( A \ll C \ll B \).  If \( C \in \cU \) then \( B \in \rnd(\cU) \).  If \( C \not\in \cU \) then, since \( \cU \) is an ultrafilter, \( X \setminus C \in \cU \).  Since \( X \setminus C \ll X \setminus A \), it follows that \( X \setminus A \in \rnd(\cU) \).  By \ref{endllin}, \( \rnd(\cU) \) is an end.
+	
+	To show uniqueness, suppose by way of contradiction that \( \cE \) is an end on \( X \) contained in \( \cU \) and that there is an \( A \in \cE \setminus \rnd(\cU) \).  Since \( \cE \) is round, there is a \( B \in \cE \) such that \( B \ll E \).  By \ref{endllin}, either \( X \setminus B \in \rnd(\cU) \) or \( A \in \rnd(\cU) \).  By our choice of \( A \), the latter case cannot happen.  So \( X \setminus B \in \rnd(\cU) \subseteq \cU \) and \( B \in \cE \subseteq \cU \).  Thus \( \emptyset = (X \setminus B) \cap B \in \cU \), a contradiction.
+\end{proof}
+
+\begin{definition}
+	Let \( (X,\sll) \) be a proximity space and \( A \subseteq X \).  Define
+	\[ \o(A) = \{ \cE \in \End(X): A \in \cE \} \]
+\end{definition}
+
+\begin{proposition}
+	Let \( (X,\ll) \) be a proximity space.  For all \( A,B \subseteq X \),
+	\begin{enumerate}[label={(\arabic*)},ref={\theproposition(\arabic*)}]
+		\item \label{oempty}
+			\( A = \emptyset \iff \o(A) = \emptyset \)
+		\item \label{osubset}
+			\( A \subseteq B \implies \o(A) \subseteq \o(B) \)
+		\item \label{ointerior}
+			\( \o(A) = \o(\int{A}) \)
+		\item \label{oint}
+			\( \o(A) \cap \o(B) = \o(A \cap B) \)
+		\item \label{oun}
+			\( \o(A) \cup \o(B) \subseteq \o(A \cup B) \)
+		\item \label{llo}
+			\( A \ll B \implies \End(X) \setminus \o(B) \subseteq \o(X \setminus A) \)
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\leavevmode
+	\begin{enumerate}
+		\item
+			Since \( \emptyset \) is not in any end, \( \o(\emptyset) = \emptyset \).
+		
+			Suppose \( \emptyset \neq A \subseteq X \).  Take \( a \in A \).  By (Q6), there is a \( B \subseteq X \) such that \( a \ll B \ll A \).  Let \( \cF = \{ C \subseteq X : a \in C \} \).  It is easy to check that \( \cF \) is a filter.  Also, note that \( B \in \cF \).  Since \( B \ll A \) then \( A \in \rnd(\cF) \).  By \ref{rndround}, \( \rnd(\cF) \) is round and, by \ref{roundinend}, every round filter is contained in an end.  Therefore, there is an end containing \( A \).  Thus \( \o(A) \neq \emptyset \).
+		
+		\item
+			Let \( \cA \in \o(A) \).  Then \( A \in \cA \).  Since \( \cA \) is an end and \( A \subseteq B \) then \( B \in \cA \).  Hence \( \cA \in \o(A) \).
+			
+		\item
+			Since \( \int A \subseteq A \), by \ref{osubset}, \( \o(\int A) \subseteq \o(A) \).
+			
+			For the reverse inclusion, let \( \cE \in \o(A) \).  Then \( A \in \cE \).  Since \( \cE \) is round, there is a \( B \in \cE \) such that \( B \ll A \).  By \ref{llclint}, \( B \subseteq \int{A} \).  Therefore, \( \int{A} \in \cE \).  So \( \cE \in \o(\int{A}) \).
+		
+		\item
+			Let \( \cA \in \o(A \cap B) \).  Then \( A \cap B \in \cA \).  Since \( \cA \) is filter, \( A,B \in \cA \).  So \( \cA \in \o(A) \) and \( \cA \in \o(B) \).  Hence \( \cA \in \o(A) \cap \o(B) \).
+	
+			The converse is the reverse of this argument.
+			
+		\item
+			Let \( \cA \in \o(A) \cup \o(B) \).  Then \( \cA \in \o(A) \) or \( \cA \in \o(B) \).  Thus \( A \in \cA \) or \( B \in \cA \).  So \( A \cup B \in \cA \) which implies \( \cA \in \o(A \cup B) \).
+			
+		\item
+			Let \( \cE \in \End(X) \setminus \o(B) \).  Then \( B \not\in \cE \).  By \ref{endllin}, since \( A \ll B \), \( X \setminus A \in \cE \).  Hence \( \cE \in \o(X \setminus A) \).
+	\end{enumerate}
+\end{proof}
+
+\begin{definition}
+	Let \( (X,\snear) \) be a proximity space.  For \( \cA,\cB \subseteq \End(X) \), define \( \cA \nneare \cB \) if and only if there exist \( A,B \subseteq X \) such that \( \cA \subseteq \o(A) \), \( \cB \subseteq \o(B) \), and \( A \nnear B \).  As expected, also define \( \cA \lle \cB \) if and only if \( \cA \nneare \End(X) \setminus \cB \).
+\end{definition}
+
+\begin{proposition}
+	Let \( (X,\snear) \) be a proximity space.  Then \( \neare \) is a proximity on \( \End(X) \).
+\end{proposition}
+\begin{proof}
+	We will verify the proximity axioms.
+	
+	\prooflabel{(P1)} Trivial.
+	
+	\prooflabel{(P2)} Let \( \cA,\cB,\cC \in \End(X) \) and suppose \( \cA \nneare \cB \cup \cC \).  Then there are \( A,B \subseteq X \) such that \( \cA \subseteq \o(A) \), \( \cB \cup \cC \subseteq \o(B) \), and \( A \nnear B \).  So \( \cB \subseteq \o(B) \) and \( \cC \subseteq \o(B) \).  Hence \( \cA \nneare \cB \) and \( \cA \nneare \cC \).
+	
+		Conversely, suppose \( \cA \nneare \cB \) and \( \cA \nneare \cC \).  Then there exist \( A,B \subseteq X \) such that \( \cA \subseteq \o(A) \), \( \cB \subseteq \o(B) \), and \( A \nnear B \).  Also, there exist \( C,D \subseteq X \) such that \( \cA \subseteq \o(C) \), \( \cC \subseteq \o(D) \), and \( C \nnear D \).  So \( \cA \subseteq \o(A) \cap \o(C) = \o(A \cap C) \) and \( \cB \cup \cC \subseteq \o(B) \cup \o(D) \subseteq \o(B \cup D) \).  Furthermore, \( A \nnear B \) implies \( A \cap C \nnear B \) and \( C \nnear D \) implies \( A \cap C \nnear D \).  Therefore \( A \cap C \nnear B \cup D \).  Hence \( \cA \nneare \cB \cup \cC \).
+	
+	\prooflabel{(P3)} Suppose \( \emptyset \nneare \cB \).  Then there is an \( A \subseteq X \) such that \( \cA \in \o(\emptyset) = \emptyset \), a contradiction.
+	
+	\prooflabel{(P4)} Suppose \( \cA \nneare \cB \).  Then there exist \( A,B \subseteq X \) such that \( \cA \subseteq \o(A) \), \( \cB \subseteq \o(B) \), and \( A \nnear B \).  Since \( A \nnear B \) then there exists a \( C \subseteq X \) such that \( A \nnear C \) and \( B \nnear X \setminus C \).
+	
+		Let \( \cC = \o(C) \).  Since \( \cA \subseteq \o(A) \), \( \cC \subseteq \o(C) \), and \( A \nnear C \), it follows that \( \cA \nneare \cC \).  As \( B \nnear X \setminus C \), there exists a \( D \subseteq X \) such that \( B \nnear X \setminus D \) and \( D \nnear X \setminus C \).  Therefore \( D \ll C \).  By \ref{llo}, \( \End(X) \setminus \cC = \End(X) \setminus \o(C) \subseteq \o(X \setminus D) \).  So we have \( \End(X) \setminus \cC \subseteq \o(X \setminus D) \), \( \cB \subseteq \o(B) \), and \( B \nnear X \setminus D \), we have that \( \cB \nneare \End(X) \setminus \cC \).
+		
+		\prooflabel{(P5)} Suppose \( \cA \nneare \cB \)  Then there exist \( A,B \subseteq X \) such that \( \cA \subseteq \o(A) \), \( \cB \subseteq \o(B) \), and \( A \nnear B \).  Since \( A \nnear B \) then \( A \cap B = \emptyset \).  Hence \( \cA \cap \cB \subseteq \o(A) \cap \o(B) = \o(A \cap B) = \o(\emptyset) = \emptyset \).
+\end{proof}
+
+\begin{remark}
+	Since \( (\End(X),\neare) \) is a proximity space, \( \neare \) induces a topology \( \tau(\neare) \) on \( \End(X) \) as defined in \ref{deltatop}.
+\end{remark}
+
+\begin{lemma}
+	\label{nneareo}
+	Let \( (X,\snear) \) be a proximity space, \( \cE \in \End(X) \), and \( \cA \subseteq \End(X) \).  Then \( \cE \nneare \cA \) if and only if there exists an \( A \in \cE \) such that \( \o(A) \cap \cA = \emptyset \).
+\end{lemma}
+\begin{proof}
+	Suppose \( \cE \nneare \cA \).  Then there exist \( A,B \subseteq X \) such that \( \cE \in \o(A) \), \( \cA \subseteq \o(B) \), and \( A \nnear B \).  So \( A \cap B = \emptyset \) implying that \( \o(A) \cap \o(B) = \o(A \cap B) = \o(\emptyset) = \emptyset \).  Since \( \cA \subseteq \o(B) \) we have \( \o(A) \cap \cA = \emptyset \).  Also, \( \cE \in \o(A) \) implies \( A \in \cE \).
+	
+	Conversely, suppose there is an \( A \in \cE \) such that \( \o(A) \cap \cA = \emptyset \).  Since \( \cE \) is a round filter, there exist \( B,C \in \cE \) such that \( C \ll B \ll A \).  So \( C \nnear X \setminus B \).  Also, \( \o(A) \cap \cA = \emptyset \) and \ref{llo} implies \( \cA \subseteq \End(X) \setminus \o(A) \subseteq \o(X \setminus B) \).  Lastly, \( C \in \cE \) implies \( \cE \in \o(C) \).  So \( \cE \nneare \cA \).
+\end{proof}
+
+\begin{theorem}
+	\label{Endbase}
+	Let \( (X,\ll) \) be a proximity space.  Then \( \cB = \{ \o(U): U \in \tau(\ll) \} \) is a base for \( \tau(\sneare) \).
+\end{theorem}
+\begin{proof}
+	First, we show that \( \o(U) \in \tau(\sneare) \) for all \( U \in \tau(\ll) \).  Let \( U \in \tau(\ll) \) and take \( \cE \in \o(U) \).  Then \( U \in \cE \).  Note that \( \o(U) \cap \End(X) \setminus \o(U) = \emptyset \).  So by \ref{nneareo}, \( \cE \nneare \End(X) \setminus \o(U) \).  So \( \cE \not\in \cl_{\tau(\sneare)} (\End(X) \setminus \o(U)) = \End(X) \setminus \int_{\tau(\sneare)} \o(U) \).  Therefore \( \cE \in \int_{\tau(\sneare)} \o(U) \).  Hence \( \o(U) \in \tau(\sneare) \).
+	
+	Let \( \cU \in \tau(\neare) \) and take \( \cE \in \cU \).  By \ref{deltaallin}, \( \cE \nneare (\End(X) \setminus \cU) \).  By \ref{nneareo}, there is an \( E \in \cE \) such that \( \o(E) \cap (\End(X) \setminus \cU) = \emptyset \).  By \ref{ointerior}, \( \o(E) = \o(\int{E}) \).  So \( \cE \in \o(\int{E}) \subseteq \cU \) and \( \o(\int{E}) \in \cB \).
+\end{proof}
+
+\begin{proposition}
+	\label{ocomp}
+	Let \( (X,\ll) \) be a proximity space.  For \( A \subseteq X \),	\( o(X \setminus A) = \End(X) \setminus \cl{\o(A)} \).
+\end{proposition}
+\begin{proof}
+	As \( A \cap (X \setminus A) = \emptyset \), by \ref{oempty}, \( \o(A \cap (X \setminus A)) = \emptyset \).  By \ref{oint}, \( \o(A) \cap \o(X \setminus A) = \emptyset \).  So \( \cl{\o(A)} \cap \o(X \setminus A) = \emptyset \).  Therefore, \( \o(X \setminus A) \subseteq \End(X) \setminus \cl{\o(A)} \).
+	
+	For the opposite inclusion, suppose \( \cE \in \End(X) \setminus \cl{\o(A)} \).  As \( \cE \not\in \cl{\o(A)} \), there is a \( U \in \tau(\slle) \) such that \( \cE \in \o(U) \) and \( \o(A) \cap \o(U) = \emptyset \).  By \ref{oint}, \( \o(A \cap U) = \emptyset \).  By \ref{oempty}, \( A \cap U = \emptyset \).  So \( U \subseteq X \setminus A \).  By \ref{osubset}, \( \o(U) \subseteq \o(X \setminus A) \).  As \( \cE \in \o(U) \), \( \cE \in \o(X \setminus A) \).
+\end{proof}
+
+\begin{definition}
+	For a proximity space \( (X,\snear) \), define \( e:X \to \End(X) \) by \( e(x) = \cN(x) \).
+\end{definition}
+
+\begin{lemma}
+	\label{eneare}
+	Let \( (X,\snear) \) be a proximity space such that \( (X,\tau(\snear)) \) is Tychonoff.  For \( A,B \subseteq X \),
+	\[ A \near B \iff e[A] \neare e[B] \]
+\end{lemma}
+\begin{proof}
+	Let \( A,B \subseteq X \) such that \( e[A] \nnear e[B] \).  Then there exist \( C,D \subseteq X \) such that \( e[A] \subseteq \o(C) \), \( e[B] \subseteq \o(D) \), and \( C \nnear D \).  So \( C \in e(a) \) and thus \( C \in \cN(a) \) for all \( a \in A \).  Also \( D \in e(b) \) and thus \( D \in \cN(b) \) for all \( b \in B \).  Therefore \( a \in C \) for all \( a \in A \) and \( b \in D \) for all \( b \in B \).  Also, \( A \subseteq C \) and \( B \subseteq D \).  Since \( C \nnear D \) then \( A \nnear B \).
+	
+	Conversely, let \( A,B \subseteq X \) such that \( A \nnear B \).  Then \( A \ll X \setminus B \).  So there exist \( U,V \in \tau(\snear) \) such that \( A \ll U \ll V \ll X \setminus B \).  Then \( A \ll U \ll \cl{V} \subseteq X \setminus B \) and thus \( A \subseteq U \) and \( B \subseteq X \setminus \cl{V} \).  Hence for all \( a \in A \), \( U \in e(a) \) and for all \( b \in B \), \( X \setminus \cl{V} \in e(b) \).  So \( e(a) \in \o(U) \) and \( e(b) \in \o(X \setminus \cl{V}) \) for all \( a \in A \), \( b \in B \).  So \( e[A] \subseteq \o(U) \) and \( e[B] \subseteq \o(X \setminus \cl{V}) \).  As \( U \ll \cl{V} \), \( U \nnear X \setminus \cl{V} \).  Therefore \( e[A] \nnear e[B] \).
+\end{proof}
+
+\begin{lemma}
+	\label{eequaloe}
+	Let \( (X,\snear) \) be a proximity space. For \( U \in \tau(\snear) \), \( e[U] = \o(U) \cap e[X] \).
+\end{lemma}
+\begin{proof}
+	Let \( \cA \in e[U] \).  Then \( \cA = \cN(u) \) for some \( u \in U \).  But for all \( v \in U \), \( U \in \cN(v) \).  Therefore \( U \in \cA \) and thus \( \cA \in \o(U) \).  Also, \( \cA \in e[U] \subseteq e[X] \).  So \( e[U] \subseteq \o(U) \cap e[X] \).
+	
+	For the reverse inclusion, let \( \cA \in \o(U) \cap e[X] \).  Then \( \cA \in \o(U) \) and \( \cA \in e[X] \).  So \( U \in \cA \) and there is an \( x \in X \) such that \( \cA = \cN(x) \).  So \( U \in \cN(x) \) and thus \( x \in U \).  Therefore \( A \in e[U] \).
+\end{proof}
+
+\begin{lemma}
+	\label{Eend}
+	Let \( (X,\snear) \) be a proximity space.  For an ultrafilter \( \cU \) on \( \End(X) \), \( \cE = \{ A \subseteq X : e[A] \in \rnd(\cU) \} \) is an end on \( X \).
+\end{lemma}
+\begin{proof}
+	First we will show that \( \cE \) is a filter.
+	
+	Note that \( e[\emptyset] = \emptyset \) so \( e[\emptyset] \not\in \rnd(\cU) \) since \( \rnd(\cU) \) is a filter.  Hence \( \emptyset \not\in \cE \).
+	
+	Let \( A,B \in \cE \).  Then \( e[A],e[B] \in \rnd(\cU) \).  So \( e[A] \cap e[B] \in \rnd(\cU) \).  Since \( e \) is a homeomorphism onto \( e[X] \), \( e[A \cap B] = e[A] \cap e[B] \) and so \( e[A \cap B] \in \rnd(\cU) \).  Thus, \( A \cap B \in \cE \).
+	
+	Let \( A \in \cE \) and \( B \subseteq X \) such that \( A \subseteq B \).  Then \( e[A] \subseteq e[B] \).  Since \( e[A] \in \rnd(\cU) \) then \( e[B] \in \rnd(\cU) \).  So \( B \in \cE \).
+	
+	To show \( \cE \) is round, take \( A \in \cE \).  Then \( e[A] \in \rnd(\cU) \).  So there is a \( \cB \in \rnd(\cU) \) such that \( \cB \lle e[A] \).  By \ref{eneare}, \( e^\leftarrow[\cB] \ll e^\leftarrow[e[A]] \) and as \( e^\leftarrow[e[A]] = A \), \( e^\leftarrow[\cB] \ll A \).  Now, note that, since \( \cB \subseteq e[A] \), \( \cB \subseteq e[X] \).  Hence \( e[e^\leftarrow[\cB]] = \cB \).  As \( \cB \in \rnd(\cU) \), \( e[e^\leftarrow[\cB]] \in \rnd(\cU) \).  Therefore \( e^\leftarrow[\cB] \in \cE \) and \( e^\leftarrow[\cB] \ll A \).  So \( \cE \) is round.
+	
+	Finally, we must show that \( \cE \) is an end.  Let \( A,B \subseteq X \) such that \( A \ll B \) and \( X \setminus A \not\in \cE \).  By \ref{endllin}, it is enough to show that \( B \in \cE \).  Since \( A \ll B \) then \( X \setminus B \ll X \setminus A \).  So by \ref{eneare}, \( e[X \setminus B] \lle e[X \setminus A] \).  Since \( X \setminus A \not\in \cE \) then \( e[X \setminus A] \not\in \rnd(\cU) \).  But, \( \rnd(\cU) \) is an end, so \( \End(X) \setminus e[X \setminus B] \in \rnd(\cU) \).  Therefore \( e^\leftarrow[\End(X) \setminus e[X \setminus B]] \in \cE \).  So as \( e^\leftarrow[\End(X) \setminus e[X \setminus B]] = X \setminus (X \setminus B) = B \), we have that \( B \in \cE \).
+\end{proof}
+
+\begin{theorem}
+	\label{endcptt}
+	Let \( (X,\snear) \) be a proximity space.  Then \( (\End(X),\tau(\neare)) \) is compact Hausdorff.
+\end{theorem}
+\begin{proof}
+	First we will show that \( (\End(X),\tau(\neare)) \) is Hausdorff.
+	
+	Let \( \cE,\cF \in \End(X) \) such that \( \cE \neq \cF \).  Let \( B \in \cE \setminus \cF \).  Then there is an \( A \in \cE \) such that \( A \ll B \).  Since \( B \not\in \cF \) and \( \cF \) is an end, then by \ref{endllin}, \( X \setminus A \in \cF \).  So \( A \in \cE \) and \( X \setminus A \in \cF \).  Also, \( \o(A) \cap \o(X \setminus A) = \o(\emptyset) = \emptyset \).
+	
+	A space is compact if and only if every ultrafilter converges \cite{joshi}.  Let \( \cU \) be an ultrafilter on \( \End(X) \).  We will show that \( \cU \) converges to \( \cE = \{ A \subseteq X : e[A] \in \rnd(\cU) \} \) which is an end by \ref{Eend}.  Let \( A \subseteq X \) such that \( \cE \in \o(A) \).  Then it is enough to show that \( \o(A) \in \cU \).  Since \( \cE \in \o(A) \) then \( A \in \cE \).  Since \( \cE \) is round, there is a \( B \in \cE \) such that \( B \ll A \).  Then there is a \( U \in \tau(\snear) \) such that \( B \ll U \ll A \).  As \( B \subseteq U \) and \( B \in \cE \) then \( U \in \cE \).  Therefore, \( e[U] \in \rnd(\cU) \).  By \ref{eequaloe}, \( e[U] \subseteq \o(U) \) and thus \( \o(U) \in \rnd(\cU) \).  Since \( U \subseteq A \), by \ref{osubset}, \( \o(U) \subseteq \o(A) \).  Hence \( \o(A) \in \rnd(\cU) \subseteq \cU \).
+	%Note: This can also be accomplished using (P4') and then inserting open sets.
+\end{proof}
+
+\begin{lemma}
+	\label{ehomeo}
+	Let \( (X,\sll) \) be a proximity space such that \( (X,\tau(\sll)) \) is Tychonoff.  Then \( e \) is a homeomorphism onto its image.
+\end{lemma}
+\begin{proof}
+	To show \( e \) is continuous, let \( x \in X \).  Then \( e(x) = \cN(x) \).  By \ref{Endbase}, there is a \( U \in \tau(\sll) \) such that \( \cN(x) \in \o(U) \).  By \ref{eequaloe}, \( e[U] \subseteq \o(U) \).  So \( e \) is continuous.
+	
+	To show that \( e \) is injective, let \( a,b \in X \) such that \( a \neq b \).  Since \( (X,\tau(\snear)) \) is Hausdorff and thus \( \snear \) is separated, \( a \nnear b \).  By \ref{eneare}, \( e(a) \nnear e(b) \).  By (P5), \( e(a) \neq e(b) \).
+	
+	Since the property of being Hausdorff is hereditary \cite[p.67]{patty}, \( e[X] \) is Hausdorff.  As \( e \) is a continuous bijection from a compact space to a Hausdorff space, \( e \) is a homeomorphism \cite[p.316]{givant}.
+\end{proof}
+
+\begin{lemma}
+	\label{edenseembed}
+	Let \( (X,\snear) \) be a proximity space.  Then \( e[X] \) is dense in \( (\End(X),\tau(\sneare)) \).
+\end{lemma}
+\begin{proof}	
+	By way of contradiction, suppose \( \cA \in \End(X) \setminus \cl_{\tau(\sneare)} e[X] \).  Then there exist \( A,B \subseteq X \) such that \( \cA \subseteq \o(A) \), \( e[X] \subseteq \o(B) \), and \( A \nnear B \).  Since \( e[X] \subseteq \o(B) \) then \( e(x) \in \o(B) \) for all \( x \in X \).  Hence \( B \in e(x) \) for all \( x \in X \).  So \( B = X \).  Since \( A \nnear B \) then it must be that \( A = \emptyset \).  As \( \cA \subseteq \o(\emptyset) \), \( \cA = \emptyset \).  But \( \cA \in \End(X) \), a contradiction.
+\end{proof}
+
+\begin{theorem}
+	Let \( (X,\snear) \) be a proximity space such that \( (X,\tau(\snear)) \) is Tychonoff.  Then \( (\End(X),\neare) \) is a Hausdorff compactification of \( (X,\snear) \).
+\end{theorem}
+\begin{proof}
+	This follows immediately from \ref{endcptt}, \ref{ehomeo}, and \ref{edenseembed}.
+\end{proof}
+
+\begin{corollary}
+	Let \( (X,\snear) \) be a proximity space such that \( (X,\tau(\snear)) \) is Tychonoff.  For \( A,B \subseteq X \),
+	\[ A \near B \iff \cl_{\tau(\neare)} e[A] \cap \cl_{\tau(\neare)} e[B] = \emptyset \]
+\end{corollary}
+\begin{proof}
+	Let \( A,B \subseteq X \).  By \ref{eneare}, \( A \near B \) if and only if \( e[A] \neare e[B] \).  By \ref{endcptt}, \( (\End(X),\tau(\neare)) \) is compact Hausdorff so, by \ref{cpttunique}, \( e[A] \neare e[B] \) if and only if \( \cl_{\tau(\neare)} e[A] \cap \cl_{\tau(\neare)} e[B] = \emptyset \).
+\end{proof}
+
+\begin{theorem}[Smirnov's Theorem \cite{smirnov}]
+	Let \( X \) be Tychonoff, \( \cD \) the collection of all proximities on \( X \) compatible with \( \tau(X) \), and \( \cK \) the collection of all Hausdorff compactifications of \( X \).  Then
+	\[ \nu: \cD \to \cK: \snear \mapsto (\End(X),\tau(\neare)) \]
+	is a bijection.
+\end{theorem}
+\begin{proof}
+	First, we will show \( \nu \) is injective.  Let \( Y,Z \in \cK \) such that \( Y \cong Z \) and let \( \snear_Y \) and \( \snear_Z \) be proximities on \( Y \) and \( Z \) respectively.  By \ref{isomgeq}, \( Y \geq Z \) and \( Z \geq Y \).  By \ref{geqdgeq}, \( \snear_Y \geq \snear_Z \) and \( \snear_Z \geq \snear_Y \).  Hence \( \snear_Y = \snear_Z \).  Therefore, \( \nu \) is injective.
+	
+	To show \( \nu \) is surjective, take \( Y \in \cK \).  As \( Y \) is compact Hausdorff, by \ref{cpttunique}, there is a unique proximity \( \snear_Y \) on \( Y \) compatible with \( \tau(Y) \) and is defined by, for \( A,B \subseteq Y \), \( A \near_Y B \) if and only if \( \cl_Y{A} \cap \cl_Y{B} = \emptyset \).  Define \( \snear \) by, for \( A,B \subseteq X \), \( A \near B \) if and only if \( A \near_Y B \).  By \ref{subprox}, \( \near \) is a proximity on \( X \).
+	
+	Let \( \cA,\cB \subseteq \End(X) \) such that \( \cA, \cB \) are disjoint and closed under the topology \( \tau(\sneare) \).  Then \( \cA \nneare \cB \).  By \ref{eneare}, \( e^\leftarrow[\cA] \nnear e^\leftarrow[\cB] \).  Thus, \( e^\leftarrow[\cA] \nnear_Y e^\leftarrow[\cB] \).  So \( \cl_Y{e^\leftarrow[\cA]} \cap \cl_Y{e^\leftarrow[\cB]} = \emptyset \).  By \ref{taimanov}, \( Y \geq \End(X) \).
+	
+	Now, let \( A,B \subseteq Y \) such that \( A,B \) are disjoint closed.  Then \( A \nnear_Y B \).  Then \( A \cap X \nnear B \cap X \).  By \ref{eneare}, \( e[A \cap X] \nneare e[B \cap X] \).  So \( \cl_{\End(X)}{e[A \cap X]} \cap \cl_{\End(X)}{e[B \cap X]} = \emptyset \).  By \ref{taimanov}, \( \End(X) \geq Y \).
+	
+	By \ref{isomgeq}, \( Y = \End(X) \); therefore, \( \nu \) is surjective.
+\end{proof}

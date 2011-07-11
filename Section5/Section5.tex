@@ -1,0 +1,422 @@
+\section{De Vries Duality}
+\label{devriesduality}
+
+%%%%% SET UP PHI
+
+\begin{definition}
+	Define \( \Phi: \CPTT \to \DeV \) by
+	\[ \Phi(X) = (\RO(X), \sll) \]
+	where \( \sll \) is the unique proximity on \( X \) given in \ref{cpttunique2} and defined by \( U \ll V \) if and only if \( \cl{U} \subseteq V \).  For \( X,Y \in \obj{\CPTT} \) and a morphism \( f \in \mor(X,Y) \), define \( \Phi(f): \RO(Y) \to \RO(X) \) by
+	\[ \Phi(f)(U) = \int\cl{f^\leftarrow[U]} \]
+	The corresponding diagram is
+	\onecolumn{\xymatrix{
+		X \ar[r]^{f} \ar[d]_{\Phi}	& Y \ar[d]^{\Phi} \\
+		**[l] (\RO(X),\sll) 				& **[r] (\RO(Y),\sll) \ar[l]^{\Phi(f)}
+	}}
+\end{definition}
+
+\begin{remark}
+	By \ref{devexro}, \( (\RO(X), \ll) \) is a de Vries algebra.  So the contravariant functor \( \Phi \) is well-defined.
+\end{remark}
+
+\begin{proposition}
+	\label{rocap}
+	Let \( U \) and \( V \) be open sets in the space \( X \).  Then
+	\[ \int\cl(U \cap V) = \int\cl{U} \cap \int\cl{V} \]
+\end{proposition}
+\begin{proof}
+	Note that
+	\begin{align*}
+		\int\cl(U \cap V) &\subseteq \int(\cl{U} \cap \cl{V}) \\
+		&= \int\cl{U} \cap \int\cl{V}
+	\end{align*}
+
+	For the other inclusion, note that
+	\begin{align*}
+		\cl(U \cap V) &= \cl(U \cap \cl{V}) \\
+		&= \cl(U \cap \int\cl{V}) \\
+		&= \cl(\cl{U} \cap \int\cl{V}) \\
+		&= \cl(\int\cl{U} \cap \int\cl{V})
+	\end{align*}
+	
+	As \( \int\cl{U} \cap \int\cl{V} \) is open,
+	\begin{align*}
+		\int\cl{U} \cap \int{\cl{V}} &\subseteq \int\cl(\int\cl{U} \cap \int\cl{V}) \\
+		&= \int\cl(U \cap V)
+	\end{align*}	
+\end{proof}
+
+\begin{theorem}
+	\label{phim}
+	Let \( X,Y \in \obj{\CPTT} \) and \( f \in \mor(X,Y) \).  Then \( \Phi(f) \) is a de Vries morphism from \( \Phi(Y) \) to \( \Phi(X) \).
+\end{theorem}
+\begin{proof}
+	\leavevmode
+	\prooflabel{(M1)}
+		\( \Phi(f)(\emptyset) = \int\cl{f^{\leftarrow}[\emptyset]} = \int\cl{\emptyset} = \emptyset \)
+	
+	\prooflabel{(M2)}
+		Let \( U,V \in \RO(Y) \).  Since \( f \in \C(X,Y) \), \( f^{\leftarrow}[U] \) and \( f^{\leftarrow}[V] \) are open.  Therefore, by \ref{rocap},
+		\begin{align*}
+			\Phi(f)(U \cap V) &= \int\cl{f^{\leftarrow}[U \cap V]}\\
+			&= \int\cl(f^{\leftarrow}[U] \cap f^{\leftarrow}[V])\\
+			&= \int\cl{f^{\leftarrow}[U]} \cap \int\cl{f^{\leftarrow}[V]}\\
+			&= \Phi(f)(U) \cap \Phi(f)(V)
+		\end{align*}
+	
+	\prooflabel{(M3)}
+		Let \( U,V \in \RO(Y) \) such that \( U \ll V \).  Then \( \cl{U} \subseteq V \).  So \( f^\leftarrow[\cl{U}] \subseteq f^\leftarrow[V] \).  As \( f^\leftarrow[\cl{U}] = X \setminus f^\leftarrow[Y \setminus \cl{U}] \), we have
+		\[ X \setminus f^\leftarrow[Y \setminus \cl{U}] \subseteq f^\leftarrow[V] \]
+		Now, \( f^\leftarrow[V] \) is open, so \( f^\leftarrow[V] \subseteq \int\cl{f^\leftarrow[V]} \).  Likewise, \( f^\leftarrow[Y \setminus \cl{U}] \subseteq \int\cl{f^\leftarrow[Y \setminus \cl{U}]} \) and thus \( X \setminus \int\cl{f^\leftarrow[Y \setminus \cl{U}]} \subseteq X \setminus f^\leftarrow[Y \setminus \cl{U}] \).  So,
+		\[ X \setminus \int\cl{f^\leftarrow[Y \setminus \cl{U}]} \subseteq \int\cl{f^\leftarrow[V]} \]
+		Therefore,
+		\[ \cl(X \setminus \cl\int\cl{f^\leftarrow[Y \setminus \cl{U}]}) \subseteq \int\cl{f^\leftarrow[V]} \]
+		This is exactly
+		\[ -\Phi(f)(-U) \ll \Phi(f)(V) \]
+	
+	\prooflabel{(M4)}	
+		Let \( U \in \RO(Y) \).  First, we will show that \( \Phi(f)(U) \subseteq \bigvee_{V \ll U} \Phi(f)(V) \).
+		
+		Let \( V \in \RO(Y) \) such that \( V \ll U \).  Then \( \cl{V} \subseteq U \).  So,
+		\begin{align*}
+			\cl{f^\leftarrow[V]} &\subseteq f^\leftarrow[\cl{V}] \\
+			&\subseteq f^\leftarrow[U] \\
+			&\subseteq \cl{f^\leftarrow[U]}
+		\end{align*}
+		
+		Therefore, \( \int\cl{f^\leftarrow[V]} \subseteq \int\cl{f^\leftarrow[U]} \).  So \( \Phi(f)(V) \subseteq \Phi(f)(U) \) for all \( V \ll U \).  Hence \( \bigvee_{V \ll U} \Phi(f)(V) \subseteq \Phi(f)(U) \).
+	
+		For reverse inclusion, let \( V \in \RO(Y) \) such that \( V \ll U \).  Then \( \cl{V} \subseteq U \).  Let \( p \in U \).  Since \( X \) is Tychonoff, there is a \( T \in \RO(X) \) such that \( p \in T \subseteq \cl(T) \subseteq U \).  Since \( \cl(T) \subseteq U \), \( T \ll U \).  Therefore, \( \int\cl{f^\leftarrow[T]} \subseteq \Phi(f)(T) \subseteq \bigvee_{V \ll U} \Phi(f)(V) \).  As \( f^\leftarrow[T] \) is open, \( f^\leftarrow[T] \subseteq \int\cl{f^\leftarrow[T]} \).  So \( f^\leftarrow[T] \subseteq \bigvee_{V \ll U} \Phi(f)(V) \).  But \( f^\leftarrow(p) \in f^\leftarrow[T] \); therefore, \( f^\leftarrow(p) \in \bigvee_{V \ll U} \Phi(f)(V) \) for all \( p \in U \).  So \( f^\leftarrow[U] \subseteq \bigvee_{V \ll U} \Phi(f)(V) \).  Note that \( \bigvee_{V \ll U} \Phi(f)(V) \in \RO(X) \).  Thus \( \Phi(f)(U) = \int\cl{f^\leftarrow[U]} \subseteq \bigvee_{V \ll U} \Phi(f)(V) \).
+\end{proof}
+
+\begin{theorem}
+	\label{phicontra}
+	\( \Phi \) is a contravariant functor from \( \CPTT \) to \( \DeV \).
+\end{theorem}
+\begin{proof}
+	Let \( X \in \obj{\CPTT} \).  Note that \( 1_X = \id_X \) and for any \( B \in \obj{\DeV} \), \( 1_B = \id_B \).  Let \( U \in \RO(X) \).  Then
+	\begin{align*}
+		\Phi(1_X)(U) &= \int\cl{U} \\
+		&= U \\
+		&= 1_{\Phi(X)} (U)
+	\end{align*}
+	
+	Now let \( X,Y,Z \in \obj{\CPTT} \), \( f \in \mor(X,Y) \), and \( g \in \mor(Y,Z) \).  We will show that \( \Phi(g \circ f) = \Phi(f) \ast \Phi(g) \).
+	
+	Let \( V \in \RO(Z) \).  If \( U \in \RO(Z) \) such that \( U \ll V \) then \( \cl{U} \subseteq V \).  As \( U \subseteq \cl{U} \subseteq V \), \( \cl{g^\leftarrow[U]} \subseteq g^\leftarrow[\cl{U}] \subseteq g^\leftarrow[V] \).  Hence \( \int\cl{g^\leftarrow[U]} \subseteq g^\leftarrow[V] \).  So we have \( \int\cl{f^\leftarrow[\int\cl{g^\leftarrow[U]}]} \subseteq \int\cl{f^\leftarrow[g^\leftarrow[V]]} \).  Thus, for \( U \ll V \),
+	\begin{align*}
+		(\Phi(f) \circ \Phi(g))[U] &= \int\cl{f^\leftarrow[\int\cl{g^\leftarrow[U]}]} \\
+		&\subseteq \int\cl{f^\leftarrow[g^\leftarrow[V]]}\\
+		&= \Phi(g \circ f)[V]
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		(\Phi(f) \ast \Phi(g))[U] &= \bigvee_{U \ll V} (\Phi(f) \circ \Phi(g))[U] \\
+		&\subseteq \Phi(g \circ f)[V]
+	\end{align*}
+	
+	For the reverse inclusion, let \( U \in \RO(Z) \).  First we will show that
+	\[ f^\leftarrow[g^\leftarrow[U]] = \bigcup_{V \ll U} f^\leftarrow[g^\leftarrow[V]] \]
+	One inclusion is trivial.  For the other, let \( u \in f^\leftarrow[g^\leftarrow[U]] \).  Then \( (g \circ f)(u) \in U \).  As \( X \) is Tychonoff, there is a \( V \in \RO(X) \) such that
+	\[ (g \circ f)(u) \in V \subseteq \cl{V} \subseteq U \]
+	So \( u \in f^\leftarrow[g^\leftarrow[V]] \) and \( V \ll U \).  Thus \( u \in \bigcup_{V \ll U} f^\leftarrow[g^\leftarrow[V]] \) giving the desired equality.
+	
+	Now, as \( g^\leftarrow[U] \) is open, \( g^\leftarrow[U] \subseteq \int\cl{g^\leftarrow[U]} \) and since \( \int\cl{g^\leftarrow[U]} \) is open,
+	\[ f^\leftarrow[g^\leftarrow[U]] \subseteq \int\cl{f^\leftarrow[\int\cl{g^\leftarrow[U]}]} \]
+	So
+	\begin{align*}
+		\int\cl{f^\leftarrow[g^\leftarrow[U]]} &= \int\cl{\bigcup_{V \ll U} f^\leftarrow[g^\leftarrow[V]]} \\
+		&\subseteq \int\cl{\bigcup_{V \ll U} \int\cl{f^\leftarrow[\int\cl{g^\leftarrow[V]}]}} \\
+		&= \bigvee_{V \ll U} \int\cl{f^\leftarrow[\int\cl{g^\leftarrow[V]}]}
+	\end{align*}
+	Hence \( \Phi(g \circ f) \subseteq \Phi(f) \ast \Phi(f) \).
+	
+\end{proof}
+
+%%% PSI CONSTRUCTION %%%
+
+\begin{theorem}
+	\label{contain1}
+	Let \( (B,\dev) \) be a de Vries algebra.  For all \( a \in B \), \( \o(a) \in \RO(\End(B)) \).
+\end{theorem}
+\begin{proof}
+	By \ref{devocomp}, \( \o(a) = \End(B) \setminus \cl{\o(-a)} \).  Therefore
+	\begin{align*}
+		\int\cl{\o(a)} &= \int\cl{\End(B) \setminus \cl{\o(-a)}} \\
+		&= \End(B) \setminus \cl\int\cl{\o(-a)}
+	\end{align*}
+	
+	Since \( \o(-a) \) is open, we have
+	\begin{align*}
+		\int\cl{\o(a)} &= \End(B) \setminus \cl\int\cl\int{\o(-a)} \\
+		&= \End(B) \setminus \cl\int{\o(-a)} \\
+		&= \End(B) \setminus \cl{\o(-a)} \\
+		&= \o(a)
+	\end{align*}
+
+	Therefore, \( \o(a) \in \RO(\End(B)) \).
+\end{proof}
+
+\begin{theorem}
+	\label{contain2}
+	Let \( (B,\dev) \) be a de Vries algebra.  For all \( U \in \break \RO(\End(B)) \), \( U = \o(a) \) for some \( a \in B \).
+\end{theorem}
+\begin{proof}
+	Note that, since \( U \) is open, we can write \( U = \bigcup_{c \in C} \o(c) \) for some \( C \subseteq B \).  By \ref{devoun}, \( \bigcup_{c \in C} \o(c) \subseteq \o(\bigvee_{c \in C} c) \).  Therefore, \( U \subseteq \o(\bigvee_{c \in C} c) \).  Letting \( a = \bigvee_{c \in C} c \) gives \( U \subseteq \o(a) \).
+	
+	Now, since \( \End(B) \setminus \cl{U} \) is open, we can write \( \End(B) \setminus \cl{U} = \bigcup_{d \in D} \o(d) \) for some \( D \subseteq B \).
+	
+	Take \( c \in C \) and \( d \in D \).  Clearly \( \o(c) \subseteq U \) and \( \o(d) \subseteq \End(B) \setminus \cl{U} \).  So \( \o(c) \cap \o(d) = \emptyset \).  By \ref{devoint}, \( \o(c \wedge d) = \emptyset \).  By \ref{devoempty}, \( c \wedge d = 0 \).  Hence \( c \leq -d \).  Since this holds for all \( c \in C \) and \( a = \bigvee_{c \in C} c \), \( a \leq -d \) for all \( d \in C \).  So \( d \leq -a \) and, by \ref{devosubset}, \( \o(d) \subseteq \o(-a) \) for all \( d \in C \).  Since \( \End(B) \setminus \cl{U} = \bigcup_{d \in D} \o(d) \), \( \End(B) \setminus \cl{U} \subseteq \o(-a) \).  So \( \End(B) \setminus o(-a) \subseteq \cl{U} \).
+	
+	Therefore
+	\begin{align*}
+		\o(a) &= \End(B) \setminus \cl{\o(-a)} \\
+		&= \int(\End(B) \setminus \o(-a)) \\
+		&\subseteq \int\cl{U} \\
+		&= U
+	\end{align*}
+\end{proof}
+
+\begin{theorem}
+	\label{orobijection}
+	Let \( B \) be a de Vries algebra.  Then \( B \to \RO(\End(B)) : b \mapsto \o(b) \) is a bijection.
+\end{theorem}
+\begin{proof}
+	By \ref{contain2}, the mapping is surjective.
+	
+	To show the mapping is injective, let \( a,b \in B \) such that \( a \neq b \).  Then \( -a \wedge b \neq 0 \).  By (D6), there is a \( c \neq 0 \) such that \( c \dev -a \wedge b \).  Let \( \cF = \{ d \in B : c \dev d \} \).
+
+	First, we will show that \( \cF \) is a filter.	Clearly \( 0 \not\in \cF \).  Suppose \( a,b \in \cF \).  Then \( c \dev a \) and \( c \dev b \).  By (D4), \( c \dev a \wedge b \) and hence \( a \wedge b \in \cF \).  Finally, suppose \( a \in \cF \) and \( b \in B \) such that \( a \leq b \).  Then since \( c \dev a \leq b \), by \ref{devextend}, \( c \dev b \); therefore, \( b \in \cF \).  So \( \cF \) is a filter.
+
+	To show that \( \cF \) is round, let \( a \in \cF \).  Then \( c \dev a \).  So there is a \( b \in B \) such that \( c \dev b \dev a \).  So \( b \in \cF \) and \( b \dev a \).  Thus \( \cF \) is round.
+
+	This round filter \( \cF \) is contained in an end, call it \( \cE \).
+
+	Now, note that \( -a \wedge b \in \cF \subseteq \cE \).  Hence \( -a \in \cE \) and \( b \in \cE \).  Since \( -a \in \cE \), \( a \not\in \cE \).  So \( \cE \in \o(b) \setminus \o(a) \).  Therefore, \( \o(a) \neq \o(b) \).
+\end{proof}
+
+\begin{definition}
+	Define \( \Psi: \DeV \to \CPTT \) by
+	\[ \Psi(B) = \End(B) \]
+	For \( A,B \in \obj{\DeV} \) and a morphism \( f \in \mor(A,B) \), define \( \Psi(f): \End(B) \to \End(A) \) by
+	\[ \Psi(f)(\cE) = \{ a \in A: \exists b \in A \textst b \dev a \textand f(b) \in \cE \} \]
+		The corresponding diagram is
+	\onecolumn{\xymatrix{
+		A \ar[r]^{f} \ar[d]_{\Psi}	& B \ar[d]^{\Psi} \\
+		\End(A) 										& \End(B) \ar[l]^{\Psi(f)}
+	}}
+\end{definition}
+
+\begin{theorem}
+	Let \( A,B \) be de Vries algebras and \( f:A \to B \) a de Vries morphism.  For \( \cE \in \End(B) \), \( \Psi(f)(\cE) \in \End(A) \) and thus \( \Psi(f) \) is well-defined.
+\end{theorem}
+\begin{proof}
+	By way of contradiction, suppose \( 0 \in \Psi(f)(\cE) \).  Then there is a \( b \in A \) such that \( b \ll 0 \) and \( f(b) \in \cE \).  But \( b \ll 0 \) implies \( b \leq 0 \) and so \( b = 0 \).  Hence \( f(0) \in \cE \).  But by (M1), \( f(0) = 0 \), a contradiction.
+	
+	Let \( a,b \in \Psi(f)(\cE) \).  Then there exist \( c,d \in A \) such that \( c \ll a \), \( d \ll b \), \( f(c) \in \cE \), and \( f(d) \in \cE \).  By \ref{devwedge}, \( c \wedge d \ll a \wedge b \).  Also, by (M2), \( f(c \wedge d) = f(c) \wedge f(d) \) and \( f(c) \wedge f(d) \in \cE \).  Hence \( a \wedge b \in \Psi(f)(\cE) \).
+	
+	Let \( a \in \Psi(f)(\cE) \) and \( b \in A \) such that \( a \leq b \).  Then there is a \( c \in A \) such that \( c \ll a \) and \( f(c) \in \cE \).  But \( c \ll a \leq b \) implies, by \ref{devextend}, that \( c \ll b \).  Hence \( b \in \Psi(f)(\cE) \).
+	
+	To show \( \Psi(f)(\cE) \) is an end, let \( a,b \in A \) such that \( a \ll b \).  By (D5), there exist \( c,d \in A \) such that \( a \ll c \ll d \ll b \).  As \( c \ll d \), by (M3), \( -f(-c) \ll f(d) \).  But \( \cE \) is an end, so either \( f(-c) \in \cE \) or \( f(d) \in \cE \).  If \( f(-c) \in \cE \) then since \( -c \ll -a \), by the definition of \( \Psi(f)(\cE) \), \( -a \in \Psi(f)(\cE) \).  On the other hand, if \( f(d) \in \cE \) then since \( d \ll b \) then \( b \in \Psi(f)(\cE) \).  So either \( -a \in \Psi(f)(\cE) \) or \( b \in \Psi(f)(\cE) \).  Hence \( \Psi(f)(\cE) \) is an end.
+\end{proof}
+
+\begin{theorem}
+	For \( A,B \in \obj{\DeV} \) and \( f \in \mor(A,B) \), \( \Psi(f) \) is a continuous function and thus \( \Psi(f) \) is a morphism in \( \CPTT \) from \( \Psi(B) \) to \( \Psi(A) \).
+\end{theorem}
+\begin{proof}
+	Let \( \cE \in \End(B) \).  Then let \( a \in A \) such that \( \Psi(f)(\cE) \in \o(a) \).  We will show there is a \( d \in B \) such that \( \Psi(f)(\cE) \in \Psi(f)[\o(d)] \subseteq \o(a) \).
+	
+	As \( \Psi(f)(\cE) \in \o(a) \), \( a \in \Psi(f)(\cE) \).  So there is a \( 0 \neq b \in \cA \) such that \( b \ll a \) and \( f(b) \in \cE \).  Then \( \cE \in \o(f(b)) \) and hence \( \Psi(f)(\cE) \in \Psi(f)[\o(f(b))] \).
+	
+	To conclude, we will show that \( \Psi(f)[\o(f(b))] \subseteq \o(a) \).  Let \( \cF \in \o(f(b)) \).  Then \( f(b) \in \cF \).  But, \( b \ll a \) and thus \( f(b) \leq f(a) \).  As \( f(b) \in \cF \), \( a \in \Psi(f)(\cF) \).  Hence \( \Psi(f)(\cF) \in \o(a) \).
+\end{proof}
+
+\begin{theorem}
+	For \( B \in \obj{\DeV} \), \( \Psi(1_B) = 1_{F(B)} \).
+\end{theorem}
+\begin{proof}
+	Let \( \cE \in \End(B) \).  As \( 1_{\Psi(B)} = \id_{\Psi(B)} \), \( 1_{\Psi(B)}(\cE) = \cE \).
+	
+	Also, \( 1_B = \id_B \).  So,
+	\begin{align*}
+		\Psi(1_B)(\cE) &= \{ a \in B: \exists b \in B \textst b \dev a \textand 1_B(b) \in \cE \} \\
+		&= \{ a \in B: \exists b \in B \textst b \dev a \textand b \in \cE \}
+	\end{align*}
+
+	To finish, we will prove that \( \Psi(1_B)(\cE) = \cE \).
+	
+	Let \( a \in \Psi(1_B)(\cE) \).  Then there is a \( b \in B \) such that \( b \ll a \) and \( b \in \cE \).  So \( b \leq a \) and thus \( a \in \cE \).
+	
+	Let \( a \in \cE \).  Since \( \cE \) is an end and hence round, there is a \( b \in \cE \) such that \( b \ll a \).  Hence \( a \in \Psi(1_B)(\cE) \). 
+\end{proof}
+
+\begin{theorem}
+	\label{psicontra}
+	\( \Psi \) is a contravariant functor from \( \DeV \) to \( \CPTT \).
+\end{theorem}
+\begin{proof}
+	Let \( A,B,C \in \obj{\DeV} \), \( f \in \mor(A,B) \), and \( g \in \mor(B,C) \).  All that is left to show is that \( \Psi(g \ast f) = \Psi(f) \circ \Psi(g) \).
+	
+	Let \( \cE \in \End(A) \) and note that
+	\begin{align*}
+		(\Psi(f) \circ \Psi(g))(\cE) &= \{a \in A: \exists b \in A \textst b \ll a \textand f(b) \in \\
+		&\qquad \{ c \in B: \exists d \in B \textst d \ll c \textand g(d) \in \cE \} \}\\
+		&= \{a \in A: \exists b \in A \textst b \ll a \textand \\
+		&\qquad \exists d \in B \textst d \ll f(b) \textand g(d) \in \cE \}
+	\end{align*}
+	
+	Let \( a \in \Psi(g \ast f)(\cE) \).  Then there is a \( b \in A \) such that \( b \ll a \) and \( \Psi(g \ast f)(b) \in \cE \).  As \( b \ll a \), there is a \( c \in A \) such that \( b \ll c \ll a \).  Hence \( f(b) \ll f(c) \).  By \ref{mastleqcirc}, \( (g \ast f)(b) \leq (g \circ f)(b) \).  Since \( (g \ast f)(b) \in \cE \) then \( (g \circ f)(b) \in \cE \).  Therefore, \( a \in (\Psi(f) \circ \Psi(g))(\cE) \).
+	
+	Now, let \( a \in (\Psi(f) \circ \Psi(g))(\cE) \).  Then there is a \( b \in A \) such that \( b \ll a \) and there is a \( d \in B \) such that \( d \ll f(b) \) and \( g(d) \in \cE \).  As \( b \ll a \), there is a \( c \in A \) such that \( b \ll c \ll a \).  By \ref{mdev}, \( d \ll f(b) \ll f(c) \) and \( g(d) \ll (g \circ f)(b) \ll (g \circ f)(c) \).  So \( g(d) \ll \bigvee_{e \ll c} (g \circ f)(e) = (g \ast f)(c) \).  Since \( g(d) \in \cE \), \( (g \ast f)(c) \in \cE \).  This fact along with \( c \ll a \) yields \( a \in \Psi(g \ast f)(\cE) \).
+\end{proof}
+
+\begin{proposition}
+	\label{clrosep}
+	Let \( X \) be a compact Hausdorff space.  For any \( x,y \in X \), there exist \( U,V \in \RO(X) \) such that \( x \in U \), \( y \in V \), and \( \cl{U} \cap \cl{V} = \emptyset \).
+\end{proposition}
+\begin{proof}
+	Let \( x,y \in X \).  Since \( X \) is Hausdorff, there exist \( U,V \in \RO(X) \) such that \( x \in U \), \( y \in V \), and \( U \cap V = \emptyset \).  Then \( U \cap \cl{V} = \emptyset \).  As \( x \in U \) and \( X \) is Tychonoff, there is a \( W \in \RO(X) \) such that \( x \in W \subseteq \cl{W} \subseteq U \).  Therefore, \( \cl{W} \cap \cl{V} = \emptyset \).
+\end{proof}
+
+\begin{lemma}
+	\label{eaconv}
+	Let \( X \) be compact Hausdorff and \( \cE \in \End(\RO(X),\sll) \).  Then there is an \( x \in X \) such that \( \{ x \} = \a\cE \) and, furthermore, \( \cE \) converges to \( x \).
+\end{lemma}
+\begin{proof}
+	Let \( \cE \in \End(\RO(X),\sll) \).  As \( X \) is compact, \( \a\cE \neq \emptyset \) \cite[V.5.1]{gaal}.  By way of contradiction, let \( x,y \in \a{\cE} \) such that \( x \neq y \).  Then \( x,y \in \cl(E) \) for all \( E \in \cE \).  By \ref{clrosep}, there exist \( U,V \in \RO(X) \) such that \( x \in U \), \( y \in V \), and \( \cl{U} \cap \cl{V} = \emptyset \).  Hence \( \cl{U} \subseteq \int(X \setminus V) \).  So \( U \ll \int(X \setminus V) \).  As \( \cE \) is an end, either \( X \setminus \cl{U} \in \cE \) or \( \int(X \setminus V) \in \cE \).  Suppose \( X \setminus \cl{U} \in \cE \).  Note that \( \cl(X \setminus \cl{U}) = X \setminus \int\cl{U} = X \setminus U \).  As \( x \in U \), \( x \not\in \cl(X \setminus \cl{U}) \).  Therefore, \( x \not\in \a{\cE} \), a contradiction.  On the other hand, suppose \( \int(X \setminus V) \in \cE \).  Note that \( \cl\int(X \setminus V) = X \setminus \int\cl{V} = X \setminus V \).  As \( y \in V \), \( y \not\in \cl\int(X \setminus V) \), a contradiction.
+	
+	So take \( x \in \a{\cE} \).  We will show that \( \cE \) converges to \( x \).  Let \( U \in \RO(X) \) such that \( x \in U \).  Then \( x \ll U \).  So there is a \( V \in \RO(X) \) such that \( x \ll V \ll U \).  Hence \( X \setminus \cl{V} \in \cE \) or \( U \in \cE \).  If \( X \setminus \cl{V} \in \cE \) then \( x \in \cl(X \setminus \cl{V}) = X \setminus V \).  But \( x \in V \), a contradiction.  Therefore, \( U \in \cE \).
+\end{proof}
+
+\begin{theorem}
+	\label{psiphihomeom}
+	For \( X \in \obj{\CPTT} \), \( (\Psi \circ \Phi)(X) \) is homeomorphic to \( X \).
+\end{theorem}
+\begin{proof}
+	Define \( f:X \to \End(\RO(X),\ll) \) by \( f(x) = \cN(x) \cap \RO(X) \).
+	
+	First, we must show that \( f(x) \in \End(\RO(X),\ll) \) for all \( x \in X \).  Let \( x \in X \).  Clearly, \( \emptyset \not\in f(x) \).  Let \( U,V \in \cN(x) \cap \RO(X) \).  Then \( U \cap V \in \cN(x) \) and, by \ref{rocap}, \( U \cap V \in \RO(X) \).  Now, let \( U \in \cN(x) \cap \RO(X) \) and \( V \in \RO(X) \) such that \( U \ll V \).  Then \( \cl{U} \subseteq V \).  As \( x \in U \), \( x \in V \).  So \( V \in \cN(x) \cap \RO(X) \) and hence \( f(x) \) is a filter.  Let \( U \in \cN(x) \cap \RO(X) \).  Then \( x \in U \).  As \( X \) is compact Hausdorff, there is a \( V \in \RO(X) \) such that \( x \in V \ll U \).  So \( f(x) \) is round.  By \ref{Nend}, \( \cN(x) \) is an end on \( X \) and thus \( \cN(x) \cap \RO(X) \) is an end on \( \RO(X) \).
+	
+	To show \( f \) is injective, let \( x,y \in X \) such that \( x \neq y \).  By \ref{clrosep}, there exist \( U,V \in \RO(X) \) such that \( x \in U \) and \( v \in V \).  Therefore, \( U \in (\cN(x) \cap \RO(X)) \setminus (\cN(y) \cap \RO(X)) \).  Hence \( f(x) \neq f(y) \).
+	
+	To show \( f \) is surjective, let \( \cE \in \End(\RO(X),\ll) \).  By \ref{eaconv}, \( \a\cE = \{ x \} \) for some \( x \in X \) and, furthermore, \( x \in E \) for all \( E \in \cE \).  Hence \( \cE \subseteq \cN(x) \).  As \( \cN(x) \) is an end, it must be that \( \cE = \cN(x) \).  So \( \cE = f(x) \).
+	
+	To show \( f \) is continuous, we will first show that \( f^\leftarrow[\o(U)] = U \) for all \( U \in \RO(X) \).  Let \( x \in f^\leftarrow[\o(U)] \).  Then \( f(x) \in \o(U) \) and thus \( U \in f(x) \).  So \( U \in \cN(x) \) and hence \( x \in U \).  The opposite inclusion is the reverse of this argument.  As \( \{ \o(U): U \in \RO(X) \} \) is a base for a topology on \( \End(\RO(X),\ll) \), this shows \( f \) is continuous.
+	
+	As \( f \) is a continuous bijection from a compact space to a Hausdorff space, \( f \) is a homeomorphism \cite{givant}.
+\end{proof}
+
+\begin{theorem}
+	\label{phipsiisom}
+	For \( B \in \obj{\DeV} \), \( (\Phi \circ \Psi)(B) \) is algebra isomorphic to \( B \).
+\end{theorem}
+\begin{proof}
+	We will show that the mapping \( B \to \RO(\End(B),\ll): b \mapsto \o(b) \) is an algebra isomorphism.
+
+	By \ref{devoempty}, \( \o(0) = \emptyset \), and clearly, \( \o(1) = \End(B) \).  So, in the Boolean algebra \( (\RO(\End(B)),\sll) \), \( \o(0) = 0 \) and \( \o(1) = 1 \).
+	
+	Let \( a,b \in B \).  By \ref{devoint}, \( \o(a \wedge b) = \o(a) \wedge \o(b) \).  By \ref{devocomp}, \( \End(B) \setminus \cl{\o(a)} = \o(-a) \).  But in the Boolean algebra \( (\RO(\End(B)),\sll) \), \( \End(B) \setminus \cl{\o(a)} = -\o(a) \).  So \( -\o(a) = \o(-a) \) and thus, using De Morgan's law, \( \o(a \vee b) = \o(a) \vee \o(b) \).
+	
+	By \ref{orobijection}, the mapping is bijective and thus an isomorphism.
+\end{proof}
+
+%%% Natural Transformation %%%
+
+\begin{lemma}
+	\label{ofintclcup}
+	Let \( A,B \in \obj{\DeV} \) and \( f \in \mor(A,B) \).  For \( a \in A \),
+	\[ \o(f(a)) = \int\cl{\bigcup_{b \ll a} \o(f(b))} \]
+\end{lemma}
+\begin{proof}
+	Let \( U = \bigcup_{b \ll a} \o(f(b)) \).  Clearly, \( U \subseteq \o(f(a)) \).  As \( \o(f(a)) \in \RO(\End(B)) \), \( U \subseteq \int\cl{\o(f(a))} \).  For the reverse inclusion, note that \( \End(B) \setminus \cl{U} \in \RO(\End(B)) \).  By \ref{orobijection}, there is a \( c \in B \) such that \( \End(B) \setminus \cl{U} = \o(c) \).    So \( \int\cl{U} = \End(B) \setminus \cl{\o(c)} \).  Also, \( U \cap \o(c) = \emptyset \) and thus, for \( d \ll a \), \( \o(c) \cap \o(f(d)) = \emptyset \).  Therefore, \( \o(c \wedge f(d)) = \emptyset \) and thus \( c \wedge f(d) = 0 \).  Hence \( f(d) \leq -c \).  As this holds for all \( d \ll a \), we have
+	\[ f(a) = \bigvee_{d \ll a} f(d) \leq -c \]
+	and thus
+	\begin{align*}
+		\o(f(a)) &\subseteq \o(-c) \\
+		&= \End(B) \setminus \cl{\o(c)} \\
+		&= \int\cl{U}
+	\end{align*}
+\end{proof}
+
+\begin{lemma}
+	\label{phipsifo}
+	Let \( A,B \in \obj{\DeV} \) and \( f \in \mor(A,B) \).  For \( a \in A \),
+	\[ (\Phi \circ \Psi)(f)(\o(a)) = \o(f(a)) \]
+\end{lemma}
+\begin{proof}
+	First, note that \( (\Phi \circ \Psi)(f)(\o(a)) = \int\cl{\Psi(f)^\leftarrow}[\o(a)] \).
+	
+	Suppose \( b \in A \) such that \( b \ll a \).  Take \( \cE \in \o(f(b)) \).  Then \( f(b) \in \cE \).  As \( b \ll a \), \( a \in \Psi(f)(\cE) \).  So \( \Psi(f)(\cE) \in \o(a) \) and thus \( \cE \in \Psi(f)^\leftarrow(\o(a)) \).  Hence \( \o(f(b)) \subseteq \Psi(f)^\leftarrow[\o(a)] \).  Since this holds for all \( b \ll a \), \( \bigcup_{b \ll a} \o(f(b)) \subseteq \Psi(f)^\leftarrow[\o(a)] \).  By \ref{ofintclcup},
+	\begin{align*}
+		\o(f(a)) &= \int\cl{\bigcup_{b \ll a} \o(f(b))} \\
+		&\subseteq \int\cl{\Psi(f)^\leftarrow[\o(a)]}
+	\end{align*}
+	
+	For the reverse inclusion, let \( \cE \in \Psi(f)^\leftarrow[\o(a)] \).  Then \( \Psi(f)(\cE) \in \o(a) \) and thus \( a \in \Psi(f)(\cE) \).  So there is a \( b \in A \) such that \( b \ll a \) and \( f(b) \in \cE \).  Hence \( f(b) \leq f(a) \) and thus \( f(a) \in \cE \).  Therefore, \( \cE \in \o(f(a)) \).  So we have \( \Psi(f)^\leftarrow[\o(a)] \subseteq \o(f(a)) \).  As \( \o(f(a)) \in \RO(\End(B)) \), \( \int\cl{\Psi(f)^\leftarrow[\o(a)]} \subseteq \o(f(a)) \).
+\end{proof}
+
+\begin{theorem}
+	\label{etanatiso}
+	For \( B \in \obj{\DeV} \), define \( \eta(B): \RO(\End(B),\sll) \to B \) by \( \eta(B)(\o(b)) = b \).  Then \( \eta: \Phi \circ \Psi \to 1_{\DeV} \) is a natural isomorphism.
+\end{theorem}
+\begin{proof}
+	Note that, by \ref{orobijection}, \( \eta(B) \) is a bijection for any \( B \in \obj{\DeV} \) and so \( \eta \) is well-defined.
+	
+	For \( A,B \in \obj{\DeV} \) and \( f \in \mor(A,B) \), we have the following diagram.
+	\onecolumn{\xymatrix{
+		**[l] (\Phi \circ \Psi)(A) \ar[r]^{\eta(A)} \ar[d]_{(\Phi \circ \Psi)(f)}	& A \ar[d]^{f} \\
+		**[l] (\Phi \circ \Psi)(B) \ar[r]_{\eta(B)}	 															& B
+	}}
+	
+	We want to show this diagram commutes.  First,
+	\[ (1_{\DeV}(f) \circ \eta(A))(\o(a)) = 1_{\DeV}(f)(a) = f(a) \]
+	
+	Also, by \ref{phipsifo},
+	\[ (\eta(B) \circ (\Phi \circ \Psi)(f))(\o(a)) = \eta(B)(\o(f(a))) = f(a) \]
+	So the diagram commutes and thus \( \eta \) is a natural transformation.
+	
+	By \ref{phipsiisom}, \( \eta(B) \) is an isomorphism for all \( B \in \obj{\DeV} \).  Therefore, \( \eta \) is a natural isomorphism.
+\end{proof}
+
+\begin{lemma}
+	\label{psiphiN}
+	Let \( X,Y \in \obj{\CPTT} \) and \( f \in \mor(X,Y) \).  For \( x \in X \),
+	\[ (\Psi \circ \Phi)(f)(\cN(x)) = \cN(f(x)) \cap \RO(Y) \]
+\end{lemma}
+\begin{proof}
+	Note that
+	\begin{align*}
+		(\Psi \circ \Phi)(f)(\cN(x)) &= \{ U \in \RO(Y) : \exists V \in \RO(Y) \textst \cl{V} \subseteq U \\
+		&\qquad \textand \int\cl{f^\leftarrow[V]} \in \cN(x) \}
+	\end{align*}
+
+	Let \( U \in (\Psi \circ \Phi)(f)(\cN(x)) \).  Then \( U \in \RO(Y) \) and there is a \( V \in \RO(Y) \) such that \( \cl{V} \subseteq U \) and \( \int\cl{f^\leftarrow[V]} \in \cN(x) \).  So \( x \in \int\cl{f^\leftarrow[V]} \).  As \( \cl{V} \subseteq U \), \( \cl{f^\leftarrow[V]} \subseteq f^\leftarrow[U] \).  Hence \( \int\cl{f^\leftarrow[V]} \subseteq \int{f^\leftarrow[U]} = f^\leftarrow[U] \).  So \( x \in f^\leftarrow[U] \) and thus \( f(x) \in U \).  As \( U \) is open, \( U \in \cN(f(x)) \).
+	
+	For the reverse inclusion, let \( U \in \cN(f(x)) \cap \RO(Y) \).  Then \( U \in \RO(Y) \) and \( f(x) \in U \).  As \( Y \) is compact Hausdorff, there is a \( V \in \RO(Y) \) such that \( \cl{V} \subseteq U \) and \( V \in \cN(f(x)) \).  So \( f(x) \in V \) and thus \( x \in f^\leftarrow[V] \).  As \( f \) is continuous and \( V \) is open, \( f^\leftarrow[V] \subseteq \int\cl{f^\leftarrow[V]} \).  Hence \( x \in \int\cl{f^\leftarrow[V]} \) and so \( \int\cl{f^\leftarrow[V]} \in \cN(x) \).  Therefore, \( U \in (\Psi \circ \Phi)(f)(\cN(x)) \).
+\end{proof}
+
+\begin{theorem}
+	\label{zetanatiso}
+	For \( X \in \obj{\CPTT} \), define \( \zeta(X): X \to \End((\RO(X),\ll)) \) by \( \zeta(X)(x) = \cN(x) \cap \RO(X) \).  Then \( \zeta: 1_{\CPTT} \to \Psi \circ \Phi \) is a natural isomorphism.
+\end{theorem}
+\begin{proof}
+	For \( X,Y \in \obj{\CPTT} \) and \( f \in \mor(X,Y) \), we have the following diagram.
+	\onecolumn{\xymatrix{
+		X	\ar[r]^{\zeta(X)} \ar[d]_{f}	& **[r] (\Psi \circ \Phi)(X) \ar[d]^{(\Psi \circ \Phi)(f)} \\
+		Y \ar[r]_{\zeta(Y)}							& **[r] (\Psi \circ \Phi)(Y)
+	}}
+	We want to show this diagram commutes.  Note that
+	\[ (\zeta(Y) \circ f)(x) = \zeta(Y)(f(x)) = \cN(f(x)) \cap \RO(Y) \]
+	Also, by \ref{psiphiN},
+	\[ (\Psi \circ \Phi)(f) \circ \zeta(X))(x) = (\Psi \circ \Phi)(f)(\cN(x)) = \cN(f(x)) \cap \RO(Y) \]
+	So the diagram commutes and thus \( \zeta \) is a natural transformation.
+	
+	By \ref{psiphihomeom}, \( \zeta(X) \) is a homeomorphism for all \( X \in \obj{\CPTT} \).  Therefore, \( \zeta \) is a natural isomorphism.
+\end{proof}
+
+\begin{theorem}[De Vries Duality Theorem \cite{devries}]
+	The categories \( \CPTT \) and \( \DeV \) are dually equivalent.
+\end{theorem}
+\begin{proof}
+	By \ref{phicontra}, \( \Phi \) is a contravariant functor from \( \CPTT \) to \( \DeV \) and by \ref{psicontra}, \( \Psi \) is a contravariant functor from \( \DeV \) to \( \CPTT \).  By \ref{etanatiso} and \ref{zetanatiso}, \( \eta: \Phi \circ \Psi \to 1_{\DeV} \) and \( \zeta: 1_{\CPTT} \to \Psi \circ \Phi \) are natural isomorphisms.  Therefore, \( \CPTT \) and \( \DeV \) are dually equivalent.
+\end{proof}

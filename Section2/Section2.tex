@@ -1,0 +1,551 @@
+\section{Proximities}
+\label{proximities}
+	
+\begin{definition}
+	For a set \( X \), a binary relation \( \snear \) on \( \cP(X) \) is a \defn{proximity} on \( X \) if, for all \( A,B \subseteq X \), the following conditions are satisfied.
+	\begin{enumerate}
+		\item[(P1)]
+			\( A \near B \implies B \near A \)
+		\item[(P2)]
+			\( A \near B \cup C \iff A \near B \textor A \near C \)
+		\item[(P3)]
+			\( A \near B \implies A \neq \emptyset \textand B \neq \emptyset \)
+		\item[(P4)]
+			\( A \nnear B \implies \exists C \subseteq X \textst A \nnear C \textand B \nnear X \setminus C \)
+		\item[(P5)]
+			\( A \cap B \neq \emptyset \implies A \near B \)
+	\end{enumerate}
+\end{definition}
+	
+	The (P4) axiom is called the strong axiom.  If \( A \near B \), we say \( A \) is ``near" \( B \). 	For simplicity, we will often write \( x \near A \) instead of \( \{x\} \near A \).
+	
+\begin{definition}
+	A proximity \( \snear \) is called \defn{separated} if, for any \( x,y \in X \), it also satisfies
+	\begin{enumerate}
+		\item[(P6)]
+			\( x \near y \implies x = y \)
+	\end{enumerate}
+\end{definition}
+
+\begin{remark}
+	A proximity \( \snear \) on a pseudo-metric space is separated.
+\end{remark}
+
+\begin{example}
+	Let \( (X,d) \) be a metric space.  Define, for \( A,B \subseteq X \), \( A \near B \) if and only if \( d(A,B) = 0 \).  The relation \( \snear \) is a proximity on \( X \).
+\end{example}
+
+\begin{example}
+	Let \( (X,d) \) be a metric space and \( r \in \bbR \) such that \( r \geq 0 \).  Define, for \( A,B \subseteq X \), \( A \near B \) if and only if \( d(A,B) \leq r \).  The relation \( \snear \) is a proximity on \( X \).
+\end{example}
+
+\begin{definition}
+	A \defn{proximity space} is a pair \( (X,\snear) \) where \( X \) is a set and \( \snear \) is a proximity on \( X \).
+\end{definition}
+
+\begin{proposition}
+	\label{dprops}
+	Let \( (X,\snear) \) be a proximity space.  For all \( A,B,C,D \subseteq X \) and \( x \in X \),
+	\begin{enumerate}[label={(\arabic*)},ref={\theproposition(\arabic*)}]
+		\item \label{dsubset}
+			\( \emptyset \neq A \subseteq B \implies A \near B \)
+		\item \label{dsupset}
+			\( A \near B, A \subseteq C, \textand B \subseteq D \implies C \near D \)
+		\item \label{delement}
+			\( x \near A \textand x \near B \implies A \near B \).
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\leavevmode
+	\begin{enumerate}
+		\item
+			Suppose \( \emptyset \neq A \subseteq B \).  Then \( A \cap B \neq \emptyset \).  By (P5), \( A \near B \).
+		\item
+			Suppose \( A \near B \).  By (P2), \( A \cup (C \setminus A) \near B \) and again by (P2), \( A \cup (C \setminus A) \near B \cup (D \setminus B) \).  But \( A \subseteq C \) and \( B \subseteq D \) implies \( C = A \cup (C \setminus A) \) and \( D = B \cup (D \setminus B) \).  Hence \( C \near D \).
+		\item
+			By way of contradiction, suppose \( x \near A \), \( x \near B \), and \( A \nnear B \).  By (P4), there is a \( C \subseteq X \) such that \( A \nnear C \) and \( B \nnear X \setminus C \).  Either \( x \in C \) or \( x \in X \setminus C \).  Suppose, without loss of generality, that \( x \in C \).  Then by \ref{dsupset}, since \( x \near A \), we have \( A \near C \), a contradiction.
+	\end{enumerate}
+\end{proof}
+
+\begin{theorem}
+	The (P4) axiom is equivalent to
+	\begin{enumerate}[label={(P\arabic*')},ref={(P\arabic*')},start=4]
+		\item \label{P4'}
+			\( A \nnear B \implies \exists C,D \subseteq X \) s.t. \( A \nnear X \setminus C \), \( B \nnear X \setminus D \), and \( C \nnear D \)
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Suppose the (P4) axiom holds and \( A \nnear B \).  By (P4), there is a \( D \subseteq X \) such that \( A \nnear D \) and \( B \nnear X \setminus D \).  By (P1), \( A \nnear D \) implies \( D \nnear A \).  Applying (P4) again, there is a \( C \subseteq X \) such that \( D \nnear C \) and \( A \nnear X \setminus C \).  Then (P1) yields \( C \nnear D \) and all of the conditions of \( C \) and \( D \) are satisfied.
+	
+	Now, suppose (P4') holds and \( A \nnear B \).  By (P4'), there is a \( D,E \subseteq X \) such that \( D \nnear E \).  By \ref{dsubset}, \( D \subseteq X \setminus E \).  Let \( C = X \setminus D \).  Then \( A \nnear X \setminus D \) and thus \( A \nnear C \).  Also, \( B \nnear X \setminus E \).  As \( D = X \setminus C \), by \ref{dsupset}, \( B \nnear X \setminus C \) and we are done.
+\end{proof}
+
+\begin{proposition}
+	\label{deltaclosure}
+	Let \( (X, \near) \) be a proximity space.  For \( A \subseteq X \), \( \cl{A} = \{ x \in X: x \near A \} \) defines a closure operator on \( X \).
+\end{proposition}
+\begin{proof}
+	Suppose \( A,B \subseteq X \).  We must verify the Kuratowski closure axioms.
+	
+	\prooflabel{\( \cl{\emptyset} = \emptyset \)}
+	By (P3), \( x \nnear \emptyset \) for all \( x \in X \).
+	
+	\prooflabel{\( A \subseteq \cl{A} \)}
+	Let \( x \in A \).  \ref{dsubset}, \( x \near A \).  So \( x \in \cl{A} \).
+	
+	\prooflabel{\( \cl(A \cup B) = \cl{A} \cup \cl{B} \)}
+	Let \( x \in \cl(A \cup B) \).  Then \( x \near (A \cup B) \).  By (P2), \( x \near A \) or \( x \near B \).  So \( x \in \cl{A} \) or \( x \in \cl{B} \).  Thus \( x \in \cl{A} \cup \cl{B} \).  Inclusion the other way is the converse of this argument.
+	
+	\prooflabel{\( \cl(\cl{A}) = \cl{A} \)}
+	Just as \( A \subseteq \cl{A} \), we have \( \cl{A} \subseteq \cl(\cl{A}) \).  To show the other inclusion, suppose \( x \not\in \cl{A} \).  Then \( x \nnear A \).  So, by (P4), \( \exists C \subset X \) such that \( x \nnear C \) and \( A \nnear X \setminus C \).  Let \( y \in A \).  Then \( y \nnear X \setminus C \).  By \ref{dsubset}, \( y \in C \).  Hence \( \cl{A} \subseteq C \).  Since \( x \nnear C \), by \ref{dsubset}, \( x \nnear \cl{A} \).  Thus \( x \not\in \cl(\cl{A}) \).
+\end{proof}
+
+\begin{corollary}
+	\label{deltatop}
+	Let \( (X, \near) \) be a proximity space.  The set \( \tau(\snear) = \{ X \setminus \cl{A} : A \subseteq X \} \) is a topology on \( X \).
+\end{corollary}
+
+\begin{corollary}
+	\label{deltaallin}
+	Let \( (X,\snear) \) be a proximity space and \( A \subseteq X \).  Then \( A \in \tau(\snear) \) if and only if \( x \nnear X \setminus A \) for all \( x \in A \).
+\end{corollary}
+
+We say the topology \( \tau(\snear) \) is the topology on \( X \) induced by \( \near \).  Henceforth, when we talk about the topology on a proximity space, we mean this induced topology unless otherwise stated.
+
+\begin{definition}
+	Let \( X,Y \) be spaces such that \( X \) is embedded in \( Y \) and \( \snear \) a proximity on \( Y \).  Define, for \( A,B \subseteq X \), \( A \nearr{X} B \) if and only if \( A \near B \).  We say \( \snear|_X \) is the \defn{subspace proximity} of \( \snear \) on \( X \).
+\end{definition}
+
+\begin{proposition}
+	\label{subprox}
+	Let \( X,Y \) be spaces such that \( X \) is embedded in \( Y \) and \( \snear \) a proximity on \( Y \).  Then \( \snear|_X \) is a proximity on \( X \) and the topology induced by \( \snear|_X \) on \( X \) is the subspace topology of \( \tau(\snear) \) on \( X \).
+\end{proposition}
+\begin{proof}
+	It is clear that axioms (P1) through (P4) are satisfied for \( \snear|_X \) on \( \cP(X) \).  For (P5), let \( A,B \subseteq X \) such that \( A \nnearr{X} B \).  Then \( A \nnear B \).  By (P5), there exists a \( C \subseteq Y \) such that \( A \nnear C \) and \( B \nnear Y \setminus C \).  So \( A \nnear C \cap X \) and, as \( X \setminus (C \cap X) \subseteq Y \setminus C \), \( B \nnear X \setminus (C \cap X) \).  Thus \( A \nnearr{X} C \cap X \) and \( B \nnearr{X} X \setminus (C \cap X) \).  Therefore, (P5) is satisfied and \( \snear|_X \) is a proximity on \( X \).
+	
+	Now, to show \( \tau(\snear|_X) \) is the subspace topology, let \( U \in \tau(\snear) \) and \( x \in U \cap X \).  As \( x \in U \), by \ref{deltaallin}, \( x \nnear Y \setminus U \).  Then \( x \nnear (Y \setminus U) \cap X \).  But \( (Y \setminus U) \cap X = X \setminus (U \cap X) \) and so \( x \nnear X \setminus (U \cap X) \).  Thus, \( x \nnearr{X} X \setminus (U \cap X) \).  Since this holds for all \( x \in U \cap X \), \ref{deltaallin} yields \( U \cap X \in \tau(\snear|_X) \).
+	
+	For the reverse inclusion, let \( U \in \tau(\snear|_X) \).  Then \( x \nnearr{X} (X \setminus U) \) for all \( x \in U \) and thus \( x \nnear X \setminus U \) for all \( x \in U \).  So \( U \subseteq Y \setminus \cl_{\tau(\snear)}(X \setminus U) \).  But then \( X \setminus U \subseteq \cl_{\tau(\snear)}(X \setminus U) \cap X \).  As \( X \setminus U \) is closed in \( X \), \( X \setminus U = \cl_{\tau(\snear)}(X \setminus U) \cap X \).  Now,
+	\begin{align*}
+		\int_{\tau(\snear)}(Y \setminus (X \setminus U)) \cap X &= (Y \setminus \cl_{\tau(\snear)}(X \setminus U)) \cap X \\
+		&= X \setminus (\cl_{\tau(\snear)}(X \setminus U) \cap X) \\
+		&= X \setminus (X \setminus U) \\
+		&= U
+	\end{align*}
+	
+	Hence \( \tau(\snear|_X) \) is in the subspace topology of \( \tau(\snear) \) on \( X \).
+\end{proof}
+
+\begin{definition}
+	Let \( (X,\snear) \) be a proximity space and \( X \) a topological space.  Then we say \( \snear \) is \defn{compatible} with \( \tau(X) \) if and only if \( \tau(\snear) = \tau(X) \).
+\end{definition}
+
+\begin{proposition}
+	\label{deltaclosuresnear}
+	Let \( (X,\snear) \) be a proximity space.  For all \( A,B \subseteq X \),
+	\[ A \near B \iff \cl{A} \near \cl{B} \]
+\end{proposition}
+\begin{proof}
+	Suppose \( A \near B \).  It follows immediately from \ref{dsupset} that \( \cl{A} \near \cl{B} \).
+		
+	Conversely, suppose \( A \nnear B \).  Then by (P4), there is a \( C \subseteq X \) such that \( A \nnear C \) and \( B \nnear X \setminus C \).  Let \( x \in X \) such that \( x \near A \).  Then, by (4), \( x \nnear C \).  So \( x \in X \setminus C \).  Hence \( \cl{A} \subseteq X \setminus C \).  Since \( X \setminus C \nnear B \) then, by \ref{dsupset}, \( \cl{A} \nnear B \).  Applying this argument again, we get \( \cl{A} \nnear \cl{B} \).
+\end{proof}
+
+\begin{definition}
+	Let \( (X,\snear) \) be a proximity space and \( A,B \subseteq X \).  We say \( B \) is a \mdefn{\near}\defn{-neighborhood} of \( A \) and write \( A \ll B \) if and only if \( A \nnear X \setminus B \).
+\end{definition}
+
+In the above definition, we may also say \( A \) is ``surrounded by" \( B \).
+
+\begin{proposition}
+	\label{llprops}
+	Let \( (X,\snear) \) be a proximity space.  For all \( A,B \subseteq X \),
+	\begin{enumerate}
+		\item[(Q1)]
+			\( \emptyset \ll \emptyset \)
+		\item[(Q2)]
+			\( A \ll B \implies A \subseteq B \)
+		\item[(Q3)]
+			\( A \ll B \implies X \setminus B \ll X \setminus A \)
+		\item[(Q4)]
+			\( A \ll B \cap C \iff A \ll B \textand A \ll C \)
+		\item[(Q5)]
+			\( A \ll B \implies \exists C \subseteq X \textst A \ll C \ll B \)
+	\end{enumerate}
+	Futhermore, if \( (X,\snear) \) is a separated proximity space then, for all \( x,y \in X \),
+	\begin{enumerate}
+		\item[(Q6)]
+			\( x \neq y \iff \{x\} \ll X \setminus \{y\} \)
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\leavevmode
+	\begin{enumerate}
+		\item[(Q1)] By (P3) we have that \( \emptyset \nnear X \) and so \( \emptyset \ll \emptyset \).
+		\item[(Q2)] Suppose \( A \ll B \).  Then \( A \nnear X \setminus B \) and by (P5) we get \( A \cap (X \setminus B) = \emptyset \) which implies \( A \subseteq B \).
+		\item[(Q3)] Suppose \( A \ll B \).  Then \( A \nnear X \setminus B \).  By (P1), \( X \setminus B \nnear A \) so \( X \setminus B \nnear X \setminus (X \setminus A) \); therefore, \( X \setminus B \ll X \setminus A \).
+		\item[(Q4)] Suppose \( A \nnear X \setminus (B \cap C) \).  As \( B \cap C = (X \setminus B) \cup (X \setminus C) \) then by (P2), \( A \nnear X \setminus B \) and \( A \nnear X \setminus C \).  Hence \( A \ll B \) and \( A \ll C \).
+		\item[(Q5)] Suppose \( A \nnear X \setminus B \).  By (P4), there is a \( D \subseteq X \) such that \( A \nnear D \) and \( X \setminus D \nnear X \setminus B \) which, by (Q3), yields \( B \nnear D \).  Letting \( C = X \setminus D \) gives the result.
+		\item[(Q6)] This follows directly from (P6).
+	\end{enumerate}
+\end{proof}
+
+\begin{proposition}
+	Let \( (X,\snear) \) be a proximity space.  For all \( A,B,C,D \subseteq X \),
+	\begin{enumerate}[label={(\arabic*)},ref={\theproposition(\arabic*)}]
+		\item \label{llextend}
+			\( A \subseteq B \ll C \subseteq D \implies A \ll D \)
+		\item \label{llclint}
+			\( A \ll B \implies \cl{A} \ll \int{B} \)
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\leavevmode
+	\begin{enumerate}
+		\item By way of contradiction, suppose that \( A \subseteq B \ll C \subseteq D \) and \( A \nll D \).  Then \( A \near X \setminus D \).  By \ref{dsupset}, \( B \near X \setminus C \).  But this means \( B \nll C \), a contradiction.
+		\item Suppose \( A \ll B \).  Then \( A \nnear X \setminus B \).  By \ref{deltaclosuresnear}, \( \cl{A} \nnear \cl(X \setminus B) \) and \( \cl(X \setminus B) = X \setminus \int{B} \).  Hence \( \cl{A} \ll \int{B} \).	\end{enumerate}
+\end{proof}
+
+\begin{proposition}
+	\label{llintun}
+	Let \( (X, \snear) \) be a proximity space and \( \{ A_i \}_{i=1}^n \), \( \{ B_i \}_{i=1}^n \) finite families of subsets of \( X \) such that \( A_i \ll B_i \) for \( i=1, \dots, n \).
+	\begin{enumerate}[label={(\arabic*)},ref={\theproposition(\arabic*)}]
+		\item \label{llint}
+			\( \bigcap_{i=1}^n A_i \ll \bigcap_{i=1}^n B_i \)
+		\item \label{llun}
+			\( \bigcup_{i=1}^n A_i \ll \bigcup_{i=1}^n B_i \)
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\leavevmode
+	\begin{enumerate}
+		\item We induct on \( n \).  For \( n = 1 \), the result is clear.  Assume \( \bigcap_{i=1}^{n-1} A_i \ll \bigcap_{i=1}^{n-1} B_i \).  By \ref{llextend}, \( \bigcap_{i=1}^n A_i \ll \bigcap_{i=1}^{n-1} B_i \).  Also, \( \bigcap_{i=1}^n A_i \subseteq A_n \ll B_n \) implies \( \bigcap_{i=1}^n A_i \ll B_n \).  So by (Q4), \( \bigcap_{i=1}^n A_i \ll \bigcap_{i=1}^n B_i \).
+		\item By (Q3), for all \( i \), \( X \setminus B_i \ll X \setminus A_i \).  By \ref{llint}, \( \bigcap_{i=1}^n (X \setminus B_i) \ll \bigcap_{i=1}^n (X \setminus A_i) \).  Hence \( X \setminus ( \bigcup_{i=1}^n B_i ) \ll X \setminus ( \bigcup_{i=1}^n A_i ) \).  So \( \bigcup_{i=1}^n A_i \ll \bigcup_{i=1}^n B_i \).
+	\end{enumerate}
+\end{proof}
+
+\begin{proposition}
+	\label{llpropsconv}
+	Let \( X \) be a set and \( \sll \) a binary relation on \( \cP(X) \) satisfying (Q1) through (Q5).  Then the binary relation \( \snear \) defined by
+	\[ A \near B \iff A \nll X \setminus B \]
+	is a proximity on \( X \).
+\end{proposition}
+\begin{proof}~\\
+	\prooflabel{(P1)}
+		Let \( A,B \subseteq X \) and suppose \( A \near B \).  Then \( A \nll X \setminus B \).  By (Q3), \( B \nll X \setminus A \).  So \( B \near A \).
+		
+	\prooflabel{(P2)}
+		Let \( A,B,C \subseteq X \) and suppose \( A \near (B \cup C) \).  Then \( A \nll X \setminus (B \cup C) \).  So \( A \nll (X \setminus B) \cap (X \setminus C) \).  By (Q4), \( A \nll X \setminus B \) or \( A \nll X \setminus C \).  Hence \( A \near B \) or \( A \near C \).
+		
+	\prooflabel{(P3)}
+		Let \( B \subseteq X \).  By (Q1), \( \emptyset \ll \emptyset \) and by (Q3), \( X \ll X \).  So we have \( B \subseteq X \ll X \).  By \ref{llextend}, \( B \ll X \).  Hence \( B \nnear \emptyset \).
+		
+	\prooflabel{(P4)}
+		Let \( A,B \subseteq X \) and suppose \( A \nnear B \).  Then \( A \ll X \setminus B \).  By (Q5), there is a \( C \subseteq X \) such that \( A \ll C \ll X \setminus B \).  So \( A \nnear X \setminus C \) and \( C \nnear B \).
+		
+	\prooflabel{(P5)}
+		Let \( A,B \subseteq X \) and suppose \( A \ll X \setminus B \).  By (Q2), \( A \subseteq X \setminus B \).  So \( A \cap B = \emptyset \).
+\end{proof}
+
+\begin{proposition}
+	If the binary relation \( \sll \) in \ref{llpropsconv} also satisfies (Q6), then \( \snear \), as defined in \ref{llpropsconv}, is a separated proximity.
+\end{proposition}
+\begin{proof}
+	The result is immediate.
+\end{proof}
+
+\begin{theorem}
+	\label{lltop}
+	Let \( (X,\snear) \) be a proximity space.  Define the set
+	\[ \tau(\ll) = \{ U \subseteq X: x \in U \implies x \ll U \} \]
+	Then \( \tau(\ll) \) is a topology on \( X \) and \( \tau(\ll) = \tau(\snear) \).
+\end{theorem}
+\begin{proof}
+	Since \( \tau(\snear) \) is a topology, it is enough to show that \( \tau(\ll) = \tau(\snear) \).
+	
+	Let \( U \in \tau(\snear) \).  Take \( x \in U \).  Then \( x \not\in X \setminus U = cl_{\tau(\snear)}(X \setminus U) \).  Thus \( x \nnear X \setminus U \) and so \( x \ll U \).  Hence \( U \in \tau(\ll) \).
+	
+	Conversely, let \( U \in \tau(\ll) \).  Take \( x \in U \).  Then \( x \ll U \) which implies \( x \nnear X \setminus U \).  Therefore, \( x \notin cl_{\tau(\snear)}(X \setminus U) \).  So \( x \in \int_{\tau(\snear)}U \).  Hence \( U \in \tau(\snear) \).
+\end{proof}
+
+Since \( \ll \) is uniquely determined by \( \near \) and \( \tau(\snear) = \tau(\ll) \), we will use these two proximity definitions interchangeably.
+
+\begin{proposition}
+	\label{llinsertopen}
+	Let \( (X,\ll) \) be a proximity space.  For all \( A,B \subseteq X \) such that \( A \ll B \), there is a \( U \in \tau(\ll) \) such that \( A \ll U \ll B \).
+\end{proposition}
+\begin{proof}
+	Suppose \( A \ll B \).  By (Q5), there is a \( C \subseteq X \) such that \( A \ll C \ll B \).  By \ref{llclint}, \( \cl{A} \subseteq \int{C} \in \tau(\snear) \).  Letting \( U = \int{C} \) gives the result.
+\end{proof}
+
+\begin{proposition}
+	\label{llinsertro}
+	Let \( (X,\ll) \) be a proximity space.  For all \( A,B \subseteq X \) such that \( A \ll B \), there is a \( U \in \RO(X) \) such that \( A \ll U \ll B \).
+\end{proposition}
+\begin{proof}
+	Suppose \( A \ll B \).  By (Q5), there is a \( C \subseteq X \) such that \( A \ll C \ll B \).  By \ref{llclint}, \( \cl{A} \subseteq \int{C} \).  So we have \( A \subseteq \cl{A} \ll \int{C} \subseteq \int\cl{C} \).  By \ref{llextend}, \( A \ll \int\cl{C} \).  Similarly, since \( C \ll B \) then \( \cl{C} \ll \int{B} \).  So we have \( \int\cl{C} \subseteq \cl{C} \ll \int{B} \ll B \).  By \ref{llextend}, \( \int\cl{C} \ll B \).  Therefore, \( A \ll \int\cl{C} \ll B \).
+\end{proof}
+
+\begin{proposition}
+	\label{haussep}
+	Let \( (X,\snear) \) be a proximity space.  The space \( (X,\tau(\snear)) \) is Hausdorff if and only if \( \snear \) is separated.
+\end{proposition}
+\begin{proof}
+	Suppose \( (X,\snear) \) is Hausdorff and \( x \near y \).  Then by the definition of \( \tau(\snear) \), \( x \in \cl \{ y \} = \{ y \} \).  Therefore, \( x = y \).
+	
+	Conversely, suppose \( x \near y \implies x = y \).  Take \( x,y \in X \) such that \( x \neq y \).  Then \( x \nnear y \).  By (P4'), there are \( C,D \subseteq X \) such that \( x \ll C \), \( y \ll D \), and \( C \ll X \setminus D \).  By \ref{llinsertopen}, there are \( U,V \in \tau(\snear) \) such that \( x \ll U \ll C \) and \( y \ll V \ll D \).  By \ref{dsubset}, \( x \in U \subseteq C \) and \( y \in V \subseteq D \).  Also, \( C \ll X \setminus D \) implies \( C \subseteq X \setminus D \) and so \( U \cap V \subseteq C \cap D = \emptyset \).
+\end{proof}
+
+\begin{definition}
+	Let \( X \) be a space.  For all \( A,B \subseteq X \), \( A \) and \( B \) are \defn{completely separated} if and only if there is a function \( f \in \C(X) \) such that \( f[A] \subseteq \{0\} \) and \( f[B] \subseteq \{1\} \).
+\end{definition}
+
+\begin{theorem}
+	\label{llcompsep}
+	Let \( (X,\ll) \) be a proximity space and \( A,B \subseteq X \).  Then \( A \ll B \) implies \( A \) and \( X \setminus B \) are completely separated.
+\end{theorem}
+\begin{proof}
+	Let \( A,B \subseteq X \) and \( A \ll B \).  Let
+	\[ Q = \{ z/2^n: n \in \bbN, z \in \bbZ \} \cap (0,1) \]
+	
+	We will induct on \( n \) to show that there is a family \( \{ U_i \in \tau(\snear) \}_{i \in Q} \) which forms a \( \sll \)-chain between \( A \) and \( B \).
+	
+	For \( n = 1 \), \( Q \cap (0,1) = 1/2 \).  By \ref{llinsertopen}, there is a \( U_{1/2} \in \tau(\snear) \) such that \( A \ll U_{1/2} \ll B \).
+	
+	Now, let \( U_0 = A \) and \( U_1 = B \).  Suppose that
+	\[ U_0 \ll U_{1/2^n} \ll \dots \ll U_{(2^n-1)/2^n} \ll U_1 \]
+	
+	Then for each \( k \in \bbZ \cap [0,2^n-1] \), \( U_{k/2^n} \ll U_{(k+1)/2^n} \).  By \ref{llinsertopen}, there is a \( U_{(2k+1)/2^{n+1}} \in \tau(\snear) \) such that \( U_{k/2^n} \ll U_{(2k+1)/2^{n+1}} \ll U_{(k+1)/2^n} \).  Therefore
+	\[ U_0 \ll U_{1/2^{n+1}} \ll U_{2/2^{n+1}} \ll \dots \ll U_{(2^{n+1}-2)/2^{n+1}} \ll U_{(2^{n+1}-1)/2^{n+1}} \]
+
+	So, there is a family \( \{ U_i \in \tau(\snear) \}_{i \in Q} \) which forms a \( \sll \)-chain between \( A \) and \( B \).  So, for all \( i,j \in Q \), \( i < j \) implies \( U_i \ll U_j \).  Then by \ref{llclint}, \( U_i \subseteq \cl{U_i} \ll U_j \).
+	
+	We proceed as in the proof of Urysohn's Lemma \cite{urysohn}.  Define \( f:X \rightarrow [0,1] \) by
+	\begin{displaymath}
+	f(x) = \left\{
+		\begin{array}{ll}
+			\inf\{i: x \in U_i\}	& : x \in U_i \text{ for some } i \in Q\\
+			1											& : x \not\in U_i \text{ for all } i \in Q
+		\end{array}
+	\right.
+	\end{displaymath}
+	As \( A \subseteq U_0 \), \( f[A] \subseteq \{0\} \).  Also, note that \( X \setminus B \subseteq X \setminus U_1 \).  Therefore, \( f[X \setminus B] \subseteq \{1\} \).
+	
+	All that is remains is show that \( f \in \C(X) \).
+	
+	For all \( 0 < b \leq 1 \), \( f^\leftarrow[[0,b)] = \bigcup_{q<b} U_q \) which is \( \tau(\snear) \)-open.  For all \( 0 \leq a < 1 \), \( f^\leftarrow[(a,1]] = \bigcup_{q > a} (X \setminus \cl{U_q}) \) which is also \( \tau(\snear) \)-open.  As \( \{ [0,b) : b \leq 1 \} \cup \{ (a,1]: 0 \leq a \} \) is a subbase for the topology on \( [0,1] \), \( f \in \C(X) \).
+\end{proof}
+
+\begin{corollary}
+	Let \( (X,\snear) \) be a proximity space.  Then \( (X,\tau(\snear)) \) is completely regular.
+\end{corollary}
+\begin{proof}
+	Let \( A \subseteq X \) be closed and \( p \in X \setminus A \).  Then \( p \ll X \setminus A \).  So \( f(p) = 0 \) and \( f[A] \subseteq \{1\} \).
+\end{proof}
+
+\begin{corollary}
+	Let \( (X,\snear) \) be a separated proximity space.  Then \( (X,\tau(\snear)) \) is Tychonoff.
+\end{corollary}
+\begin{proof}
+	By \ref{haussep}, a separated proximity is Hausdorff.  A completely regular Hausdorff space is Tychonoff.
+\end{proof}
+
+\begin{theorem}
+	\label{tychdeltacs}
+	Let \( X \) be a Tychonoff space.  For \( A,B \subseteq X \), define \( A \nnear B \) if and only if \( A \) and \( B \) are completely separated in \( X \).  Then \( \snear \) is a separated proximity on \( X \) and \( \snear \) is compatible with \( \tau(X) \).
+\end{theorem}
+\begin{proof}
+	First, we will show that \( \near \) is a proximity on \( X \).  Let \( A,B,C \subseteq X \).
+	
+	\prooflabel{(P1)} Suppose \( A \nnear B \).  Then there is an \( f \in \C(X) \) such that \( f[A] \subseteq \{0\} \) and \( f[B] \subseteq \{1\} \).  Define \( g=1-f \).  Then \( f \in \C(X) \) and \( f[B] \subseteq \{0\} \) and \( f[A] \subseteq \{1\} \).  Hence \( B \nnear A \).
+	
+	\prooflabel{(P2)} Suppose \( A \nnear B \cup C \).  Then there is an \( f \in \C(X) \) such that \( f[A] \subseteq \{0\} \) and \( f[B \cup C] \subseteq \{1\} \).  But then \( f[B] \subseteq \{ 1 \} \) and \( f[C] \subseteq \{ 1 \} \).  Hence \( A \nnear B \) and \( A \nnear C \).
+	
+		Conversely, suppose \( A \nnear B \) and \( A \nnear C \).  Then there are \( g,h \in \C(X) \) such that \( g[A] \subseteq \{0\} \), \( g[B] \subseteq \{1\} \), \( h[A] \subseteq \{0\} \), and \( h[C] \subseteq \{1\} \).  Define \( f(x) = \min\{(g+f)(x),1\} \).  Then \( f \in \C(X) \), \( f[A] \subseteq \{0\} \), \( f[B \cup C] \subseteq \{1\} \).  Hence \( A \nnear B \cup C \).
+	
+	\prooflabel{(P3)} Suppose \( A = \emptyset \) and \( B \subseteq X \).  Let \( f(x) = \id_X \).  Then \( f \in \C(X) \), \( f[B] \subseteq \{1\} \), and \( f[A] = \emptyset \subseteq \{0\} \).  Thus \( A \nnear B \).
+	
+	\prooflabel{(P4)} Suppose \( A \nnear B \).  Then there is an \( f \in \C(X) \) such that \( f[A] \subseteq \{0\} \) and \( f[B] \subseteq \{1\} \).  Set \( C = \{ x \in X : 1/2 \leq f(x) \leq 1 \} \).  Then set
+		\begin{displaymath} 
+			g(x) = \left\{
+				\begin{array}{lr} 
+				2x & 0 \leq x \leq 1/2 \\
+				1 & 1/2 < x \leq 1
+				\end{array}
+			\right.
+		\end{displaymath}
+		Then \( (g \circ f)[A] \subseteq \{0\} \), \( (g \circ f)[C] \subseteq \{1\} \), and \( (g \circ f) \in \C(X) \).  Hence \( A \nnear C \).  Also, it is clear that \( X \setminus C \nnear B \).
+	
+	\prooflabel{(P5)} Suppose \( A \nnear B \).  Then there is an \( f \in \C(X) \) such that \( f[A] \subseteq \{0\} \) and \( f[B] \subseteq \{1\} \).  Then \( A \cap B = \emptyset \).
+	
+	\prooflabel{(P6)} Since \( X \) is Hausdorff, it follows from \ref{haussep} that \( \near \) is separated.
+	
+	Now we will show that \( \tau(X) = \tau(\snear) \).
+	
+	\prooflabel{\( \tau(X) \subseteq \tau(\snear) \)}
+	Let \( U \in \tau(X) \).  Take \( x \in U \).  Then \( x \not\in X \setminus U \) which is closed.  Since \( X \) is completely regular, there is an \( f \in \C(X) \) such that \( f(x) = 0 \) and \( f[X \setminus U] \subseteq \{1\} \).  Thus \( x \nnear X \setminus U \) for all \( x \in U \).  By \ref{deltaallin}, \( U \in \tau(\snear) \).
+	
+	\prooflabel{\( \tau(\snear) \subseteq \tau(X) \)}
+	Let \( U \in \tau(\snear) \).  Take \( x \in U \).  By \ref{deltaallin}, \( x \nnear X \setminus U \).  Therefore, there is an \( f \in \C(X) \) such that \( f(x) = 0 \) and \( f[X \setminus U] \subseteq \{ 1 \} \).  Thus \( f^\leftarrow[[0,1/2)] \) is an open neighborhood of \( x \) and is contained in \( U \).  Therefore, \( U \in \tau(X) \).
+\end{proof}
+
+\begin{proposition}
+	\label{normalcs}
+	Let \( X \) be a normal space.  For all \( A,B \subseteq X \), \( \cl{A} \cap \cl{B} = \emptyset \) if and only if \( A \) and \( B \) are completely separated.
+\end{proposition}
+\begin{proof}
+	Suppose \( A \) and \( B \) are completely separated.  Then there is an \( f \in \C(X) \) such that \( f[A] \subseteq \{0\} \) and \( f[B] \subseteq \{1\} \).  So \( \cl{f[A]} \subseteq \{0\} \) and \( \cl{f[B]} \subseteq \{1\} \).  Hence \( \cl{f[A]} \cap \cl{f[B]} = \emptyset \).  Since \( \cl{A} \subseteq f^\leftarrow[\cl{f[A]}] \) and \( \cl{B} \subseteq f^\leftarrow[\cl{f[B]}] \), we have \( \cl{A} \cap \cl{B} = \emptyset \).
+	
+	The converse follows from Urysohn's Lemma \cite{urysohn}.
+\end{proof}
+
+\begin{proposition}
+	\label{cptclintll}
+	Let \( (X,\tau(\ll)) \) be a compact space.  For all \( A,B \subseteq X \),
+	\[ \cl{A} \subseteq \int{B} \implies A \ll B \]
+\end{proposition}
+\begin{proof}
+	Take \( p \in \cl{A} \).  Then \( p \in \int{B} \in \tau(\snear) \).  By \ref{deltaallin}, \( p \nnear X \setminus \int{B} \) and so \( p \ll \int{B} \).  By \ref{llinsertopen}, there is a \( U_p \in \tau(\ll) \) such that \( p \ll U_p \ll \int{B} \).  Then \( \cl{A} \subseteq \bigcup_{p \in \cl{A}} U_p \).  Since \( \cl{A} \) is compact, there is a finite \( F \subseteq \cl{A} \) such that \( \cl{A} \subseteq \bigcup_{p \in F} U_p \).  By \ref{llun}, \( \bigcup_{p \in F} U_p \ll \int{B} \).  So we have
+	\[ A \subseteq \cl{A} \subseteq \bigcup_{p \in F} U_p \ll \int{B} \subseteq B \]
+	By \ref{llextend}, \( A \ll B \).
+\end{proof}
+
+\begin{theorem}
+	\label{cpttunique}
+	Let \( X \) be a compact Hausdorff space.  There is a unique proximity \( \ll \) on \( X \) which is compatible with \( \tau(X) \).  This proximity is defined by, for \( A,B \subseteq X \), \( A \ll B \) if and only if \( \cl{A} \cap \cl(X \setminus B) = \emptyset \).
+\end{theorem}
+\begin{proof}
+	Since a compact Hausdorff space is normal \cite{kelley}, by \ref{normalcs}, \( \cl{A} \cap \cl(X \setminus B) = \emptyset \) if and only if \( A \) and \( X \setminus B \) are completely separated.  We showed in \ref{tychdeltacs} that \( \near \) is then a proximity.
+	
+	Suppose \( A, B \subseteq X \) such that \( A \ll B \).  By \ref{llcompsep}, \( A \) and \( X \setminus B \) are completely separated.  So \( \cl{A} \cap \cl(X \setminus B) = \emptyset \).
+	
+	Conversely, suppose \( A,B \subseteq X \) such that \( \cl{A} \cap \cl(X \setminus B) = \emptyset \).  Then \( \cl{A} \subseteq \int{B} \).  By \ref{cptclintll}, \( A \ll B \).
+	
+	For uniqueness, suppose \( \sll_1 \) and \( \sll_2 \) are two proximities on \( X \) compatible with \( \tau(X) \).  Then \( (X,\tau(\sll_1)) \) and \( (X,\tau(\sll_2)) \) are both compact Hausdorff and \( \tau(\sll_1) = \tau(\sll_2) = \tau(X) \).  Let \( A,B \subseteq X \).  Then \( A \ll_1 B \) if and only if \( \cl{A} \cap \cl(X \setminus B) \) if and only if \( A \ll_2 B \).
+\end{proof}
+
+\begin{remark}
+	\label{cpttunique2}
+	Since \( \cl{A} \cap \cl{B} = \emptyset \) if and only if \( \cl{A} \subseteq X \setminus \int{B} \), we may use either to define the unique proximity.
+\end{remark}
+
+\begin{theorem}
+	\label{tychcptfcomp}
+	Let \( X \) be a Tychonoff space and \( Y \) be a Hausdorff compactification of \( X \).  For \( A,B \subseteq X \), define \( A \nnear B \) if and only if \( \cl_Y{A} \cap \cl_Y{B} = \emptyset \).  Then \( \snear \) is a separated proximity on \( X \) compatible with \( \tau(X) \).
+\end{theorem}
+\begin{proof}
+	First, we will verify that \( \snear \) is a proximity.
+	
+	\prooflabel{(P1)}	Trivial.
+			
+	\prooflabel{(P2)}	Let \( A,B,C \subseteq X \).  Note that
+		\begin{align*}
+			&\cl_Y{A} \cap \cl_Y(B \cup C)\\
+			&= \cl_Y{A} \cap (\cl_Y{B} \cup \cl_Y{C})\\
+			&= ( \cl_Y{A} \cap \cl_Y{B} ) \cup ( \cl_Y{A} \cap \cl_Y{C} )
+		\end{align*}
+		Hence \( A \nnear B \cup C \) if and only if \( A \nnear B \) and \( A \nnear C \).
+			
+	\prooflabel{(P3)}	Suppose \( A \subseteq X \).  Then \( \cl_Y{A} \cap \cl_Y{\emptyset} = \emptyset \) and so \( A \near \emptyset \).
+			
+	\prooflabel{(P4)}	Suppose \( A \nnear B \).  Then \( \cl_Y{A} \cap \cl_Y{B} = \emptyset \).  Since \( Y \) is compact Hausdorff, it is normal \cite{kelley} and thus there is a \( U \in \tau(Y) \) such that \( \cl_Y{A} \subseteq U \) and \( \cl_Y{B} \subseteq Y \setminus \cl_Y{U} \).  Hence \( \cl_Y{A} \cap (Y \setminus U) = \emptyset \) and \( \cl_Y{B} \cap \cl_Y{U} = \emptyset \).  Let \( C = X \setminus \cl_Y{U} \).  Then \( \cl_Y{C} \subseteq Y \setminus U \).  Therefore, \( \cl_Y{A} \cap \cl_Y{C} = \emptyset \) and so \( A \nnear C \).  Also, note that \( \cl_Y{U} = \cl_Y(X \setminus C) \).  Hence, \( \cl_Y{B} \cap \cl_Y(X \setminus C) = \emptyset \) and thus \( B \nnear X \setminus C \).
+			
+	\prooflabel{(P5)} Suppose \( A \nnear B \).  Then \( \cl_Y{A} \cap \cl_Y{B} = \emptyset \) and thus \( A \cap B = \emptyset \).
+			
+	\prooflabel{(P6)} Since \( X \) is Hausdorff, the proximity is separated by \ref{haussep}.
+	
+	That \( \snear \) is compatible with \( \tau(X) \) follows from \ref{tychdeltacs}.
+\end{proof}
+
+\begin{theorem}[Smirnov's Compactification Theorem]
+	\label{compseptych}
+	A space admits a compatible separated proximity if and only if it is the subspace of a compact Hausdorff space.
+\end{theorem}
+\begin{proof}
+	Let \( X \) be a space and \( \snear \) a separated proximity compatible with \( \tau(X) \).  By \ref{tychdeltacs}, \( (X,\tau(\snear)) \) is Tychonoff.  As \( \snear \) is compatible with \( \tau(X) \), \( X \) is Tychonoff.  So \( X \) is the subspace of a compact Hausdorff space, as are all Tychonoff spaces \cite[XVII.4.7]{maurin}.
+	
+	Conversely, let \( X \) be the subspace of a compact Hausdorff space.  Then \( X \) has a Hausdorff compactification \cite[XVII.4.7]{maurin}.  By \ref{tychcptfcomp}, there exists a separated proximity compatible with \( \tau(X) \).
+\end{proof}
+
+\begin{remark}
+	As a space \( X \) is the subspace of a compact Hausdorff space if and only if \( X \) has a compactification \cite[XVII.4.7]{maurin}, Smirnov's Compactification Theorem can also be stated as, ``A space admits a compatible separated proximity if and only if it has a compactification."
+\end{remark}
+
+\begin{comment}
+The following is not true.  X a subset of a compact Hausdorff Y implies X has a compactification...not necessarily Hausdorff.
+\begin{remark}
+	As a space \( X \) is Tychonoff if and only if \( X \) is the subspace of a compact Hausdorff space if and only if \( X \) has a Hausdorff compactification \cite[XVII.4.7]{maurin}, Smirnov's Compactification Theorem can also be stated as, ``A space admits a compatible separated proximity if and only if it is Tychonoff." or ``A space admits a compatible separated proximity if and only if it has a Hausdorff compactification."
+\end{remark}
+\end{comment}
+
+\begin{definition}
+	Let \( X \) be a Tychonoff space and \( Y, Z \) be Hausdorff compactifications of \( X \).  We say \( Y \) is \defn{projectively larger} than \( Z \) and write \( Y \geq Z \) if and only if there is an \( f \in \C(Y,Z) \) such that \( f|_X = \id_X \).
+\end{definition}
+
+\begin{theorem}[Taimanov's Theorem \cite{taimanov}]
+	\label{taimanov}
+	Let \( X \) be a Tychonoff space and \( Y,Z \) Hausdorff compactifications of \( X \).  Then \( Y \geq Z \) if and only if \( A \) and \( B \) are closed sets in \( Z \) and \( A \cap B = \emptyset \) implies \( \cl_Y(A \cap X) \cap \cl_Y(B \cap X) = \emptyset \).
+\end{theorem}
+\begin{proof}
+	Suppose \( Y \geq Z \).  Then there is an \( f \in \C(Y,Z) \) such that \( f(x) = x \) for all \( x \in X \).  Suppose \( A,B \subseteq Z \) are closed and disjoint.  Then \( f^\leftarrow[A] \) and \( f^\leftarrow[B] \) are closed and disjoint in \( Y \).  So \( \cl_Y(A \cap X) \cap \cl_Y(B \cap X) \subseteq f^\leftarrow[A] \cap f^\leftarrow[B] = \emptyset \).
+	
+	Conversely, suppose \( \cl_Y(A \cap X) \cap \cl_Y(B \cap X) = \emptyset \) for all disjoint closed sets \( A,B \subseteq Z \).  Let \( f = \id_X \).  Then \( f \in \C(X,Z) \) and \( f \) can be extended to a function \( F \in \C(Y,Z) \) if and only if the filter base \( \cG_y = \{ f[U \cap X]: y \in U \in \tau(Y) \} = \{ U \cap X: y \in U \in \tau(Y) \} \) converges for each \( y \in Y \) \cite[4.1(l)]{porter}.
+	
+	Since \( Z \) is compact, \( \cG_y \) has non-empty adherence \cite[V.5.1]{gaal}.  Note that
+	\[ \a{\cG_y} = \bigcap_{y \in U \in \tau(Y)} \cl_Z(U \cap X) \]
+	
+	We will show that \( \cG_y \) has only one adherent point.  Suppose \( p,q \in \a{\cG_y} \) and \( p \neq q \).  Since \( Z \) is compact Hausdorff and thus Urysohn \cite[p.141]{kelley}, there exist \( V,W \in \tau(Z) \) such that \( \cl_Z{V} \cap \cl_Z{W} = \emptyset \), \( p \in V \), and \( q \in W \).  Then, by the hypothesis,
+	\[ \cl_Y(\cl_Z V \cap X) \cap \cl_Y(\cl_Z W \cap X) = \emptyset \]
+	
+	If \( U \in \tau(Y) \) and \( y \in U \) then \( p \in \cl_Z(U \cap X) \) since \( p \in \a{\cG_y} \).  Then \( V \cap \cl_Z(U \cap X) \neq \emptyset \) and so \( V \cap U \cap X \neq \emptyset \).  Since this holds for all \( U \in \tau(Y) \) such that \( y \in U \), it must be that \( y \in \cl_Y(V \cap X) \).
+	
+	By a similar argument using \( W \) instead of \( V \), we get that \( y \in \cl_Y(W \cap X) \).
+	
+	But then
+	\begin{align*}
+		y &\in \cl_Y(V \cap X) \cap \cl_Y(W \cap X) \\
+		&\subseteq \cl_Y(\cl_Z{V} \cap X) \cap \cl_Y(\cl_Z{W} \cap X) \\
+		&= \emptyset
+	\end{align*}
+	
+	This is a contradiction.  Hence \( \a{\cG_y} = \{ p \} \) for some \( p \in Z \).
+	
+	Now we will show that \( \cG_y \) converges to \( p \). 	Let \( V \in \tau(Z) \) such that \( p \in V \).  To show convergence, we will show that there is an element \( G \in \langle \cG_y \rangle \) such that \( G \subseteq V \).  First, note that
+	\[ \{p\} = \bigcap_{U \in \tau(Y),y \in U} \cl_Z(U \cap X) \subseteq V \]
+	
+	The family \( \{ Z \setminus \cl_Z(U \cap X) : y \in U \in \tau(X) \} \cup \{ V \} \) is an open cover of \( Z \).  But \( Z \) is compact, so
+	\[ Z = V \cup \bigcup_{i=1}^n (Z \setminus \cl_Z(U_i \cap X)) \]
+	
+	Therefore
+	\[ \bigcap_{i=1}^n (U_i \cap X) \subseteq \bigcap_{i=1}^n \cl_Z(U_i \cap X) \subseteq V \]
+	and we have shown convergence.  Therefore, there is an \( F \in \C(Y,Z) \) such that \( F|_X = \id_X \) and so \( Y \geq Z \).
+\end{proof}
+
+\begin{definition}
+	Let \( X \) be a Tychonoff space and \( Y,Z \) be Hausdorff compactifications of \( X \).  We say \( Y \) is \defn{isomorphic} to \( Z \) and write \( Y \cong Z \) if there is a homeomorphism \( f:Y \to Z \) such that \( f|_X = \id_X \).
+\end{definition}
+
+\begin{proposition}
+	\label{isomgeq}
+	Let \( X \) be a Tychonoff space and \( Y,Z \) be Hausdorff compactifications of \( X \).  Then \( Y \cong Z \) if and only if \( Y \geq Z \) and \( Z \geq Y \).
+\end{proposition}
+\begin{proof}
+	Suppose \( Y \cong Z \).  Then there is a homeomorphism \( f:Y \to Z \) such that \( f|_X = \id_X \).  As \( f \in \C(Y,Z) \), \( Y \geq Z \).  Also, \( f^\leftarrow|_X = \id_X \) and \( f^\leftarrow \in \C(Z,Y) \).  Therefore, \( Z \geq Y \).
+	
+	Conversely, suppose \( Y \geq Z \) and \( Z \geq Y \).  Then there exist \( f \in \C(Y,Z) \) and \( g \in \C(Z,Y) \) such that \( f|_X = \id_X = g|_X \).  Hence \( (g \circ f) \in \C(Y,Y) \) and \( (g \circ f)|_X = \id_X \).  Also \( \id_Y \in \C(Y,Y) \) and \( \id_Y|_X = \id_X \).  A continuous extension of a continous function onto a Hausdorff compactification is unique \cite[1.6(d)]{porter}.  Therefore, \( (g \circ f) = \id_Y \).  By a similar argument, \( (f \circ g) = \id_Z \).  So \( f = g^{-1} \).  Hence, \( f^{-1} \in \C(Z,Y) \).  Thus, \( f:Y \to Z \) is a homeomorphism and \( f|_X = \id_X \).  So \( Y \cong Z \).
+\end{proof}
+
+\begin{definition}
+	Let \( \snear_1 \) and \( \snear_2 \) be two proximities defined on a set \( X \).  We say \( \snear_1 \) is \defn{finer} than \( \snear_2 \) and write \( \snear_1 \geq \snear_2 \) if and only if for \( A,B \subseteq X \), \( A \near_1 B \implies A \near_2 B \).
+\end{definition}
+
+\begin{theorem}
+	\label{geqdgeq}
+	Let \( (X,\tau) \) be a Tychonoff space and \( Y,Z \) compactifications of \( X \) with respective proximities \( \snear_Y \) and \( \snear_Z \).  Then,
+	\[ Y \geq Z \iff \snear_Y \geq \snear_Z \]
+\end{theorem}
+\begin{proof}
+	Suppose \( \snear_Y \geq \snear_Z \).  Let \( A,B \subseteq Z \) be \( \tau(Z) \)-closed such that \( A \cap B = \emptyset \).  Then \( \cl_Z{A} \cap \cl_Z{B} = \emptyset \).  By \ref{cpttunique}, \( A \nnear_Z B \).  By the hypothesis, \( A \nnear_Y B \).  Thus \( A \cap X \nnear_Y B \cap X \).  Again by \ref{cpttunique}, \( \cl_Y(A \cap X) \cap \cl_Y(B \cap X) = \emptyset \).  Hence, by \ref{taimanov}, \( Y \geq Z \).
+	
+	Conversely, suppose \( Y \geq Z \) and \( A \nnear_Z B \).  Then there is an \( f \in \C(Y,Z) \) such that \( f|_X = \id_X \).  By \ref{cpttunique}, \( \cl_Z{A} \cap \cl_Z{B} = \emptyset \).  Then \( f^\leftarrow[\cl_Z{A}] \cap f^\leftarrow[\cl_Z{B}] = \emptyset \).  Since \( \cl_Y{A} = \cl_Y{f^\leftarrow[A]} \subseteq f^\leftarrow[\cl_Z{A}] \) and similarly for \( \cl_Y{B} \), we have \( \cl_Y{A} \cap \cl_Y{B} = \emptyset \).  By \ref{cpttunique}, \( A \nnear_Y B \).
+\end{proof}

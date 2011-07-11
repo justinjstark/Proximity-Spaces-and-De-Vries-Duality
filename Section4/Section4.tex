@@ -1,0 +1,350 @@
+\section{De Vries Algebras}
+\label{devries}
+
+\begin{definition}
+	A \defn{de Vries algebra} is a Boolean algebra \( (B,\leq) \) with a binary relation \( \sdev \) on \( B \) such that for all \( a,b,c,d \in B \),
+	\begin{enumerate}
+		\item[(D1)] \( 0 \dev 0 \)
+		\item[(D2)] \( a \dev b \implies a \leq b \)
+		\item[(D3)] \( a \dev b \implies -b \dev -a \)
+		\item[(D4)] \( a \dev b \wedge c \Leftrightarrow a \dev b \textand a \dev c \)
+		\item[(D5)] \( a \dev b \implies \) \( \exists c \in B \textst a \dev c \dev b \)
+		\item[(D6)] \( 0 \neq a \in B \implies \exists b \in B \textst b \neq 0 \textand b \dev a \)
+	\end{enumerate}
+	
+	Henceforth, when we say \( B \) is a de Vries algebra, we will assume \( \leq \) is the partial order of the underlying Boolean algebra and \( \dev \) is the endowed de Vries algebra relation on \( B \).
+\end{definition}
+
+\begin{proposition}
+	\label{devveeunder}
+	Let \( B \) be a de Vries algebra.  For all \( a \in B \),
+	\[ a = \bigvee_{b \dev a} b \]
+\end{proposition}
+\begin{proof}
+	By (D2), \( b \dev a \) implies \( b \leq a \).  It is immediate that \( \bigvee_{b \dev a} b \leq a \).
+	
+	Suppose, by way of contradiction, that \( \bigvee_{b \dev a} b < a \).  Then \( a - \bigvee_{b \dev a} b > 0 \).  By (D6), there is a \( c \in B \) such that \( 0 < c \dev \bigvee_{b \dev a} b \).  So \( c \leq \bigvee_{b \dev a} b \).  Also, \( c \leq a - \bigvee_{b \dev a} b \).  Therefore,
+	\[ c \leq \bigvee_{b \dev a} b \wedge (a - \bigvee_{b \dev a} b) = 0 \]
+	This is a contradiction.
+\end{proof}
+
+\begin{example}
+	Let \( (B,\leq) \) be a complete Boolean algebra.  Then \( (B,\leq) \) is a de Vries algebra.
+\end{example}
+
+\begin{theorem}%[MacNeille \cite{macneille} and Tarski \cite{tarski}]
+	Let \( (X, \tau) \) be a space.  Then \( (\RO(X),\leq) \) is a complete Boolean algebra with the following operations.  For \( U,V \in \RO(X) \),
+	\begin{itemize}
+		\item \( 1 = X \)
+		\item \( U \wedge V = U \cap V \)
+		\item \( U \vee V = \int\cl(U \cup V) \)
+		\item \( -U = X \setminus \cl{U} \)
+	\end{itemize}
+	If \( \{U_i\}_{i \in A} \) is an infinite collection of regular open sets of \( X \), then
+	\begin{itemize}
+		\item \( \bigwedge_{i \in A} U_i = \int{\bigcap_{i \in A} U_i} \)
+		\item \( \bigvee_{i \in A} U_i = \int\cl{\bigcup_{i \in A} U_i} \)
+	\end{itemize}
+	The partial order \( \leq \) on \( (\RO(X),\leq) \) is set inclusion.
+\end{theorem}
+\begin{proof}
+	\cite[7.21 \& 7.22]{polkowski}.
+\end{proof}
+
+\begin{example}
+	\label{devexro}
+	Let \( (X,\tau) \) be a compact Hausdorff space.  For \( U,V \in \RO(X) \), define \( U \dev V \) if and only if \( \cl{U} \subseteq V \).  Then \( (\RO(X),\sdev) \) is a de Vries algebra.
+\end{example}
+
+\begin{example}
+	\label{PXdev}
+	Let \( (X,\ll) \) be a proximity space.  Then \( (\cP(X),\ll) \) is a de Vries algebra if and only if \( (X,\tau(\ll)) \) is discrete.
+\end{example}
+\begin{proof}
+	It is well known that \( (\cP(X),\ll) \) is a complete Boolean algebra with the partial order as subset inclusion.
+
+	Whether \( (X,\tau(\ll)) \) is discrete or not, (D1) through (D5) are clearly satisfied.  It is enough to check (D6).
+
+	Suppose \( X \) is discrete and \( A \subseteq X \) such that \( A \neq \emptyset \).  Then there is an \( a \in A \).  Since \( A \in \tau(\ll) \) then \( a \nnear X \setminus A \).  Hence \( \{ x \} \ll A \) and thus (D6) is satisfied.
+	
+	Conversely, suppose \( X \) is not discrete.  Then there is a limit point \( x \) in \( X \).  Note that \( \{x\} \) is not open.  So \( X \setminus \{x\} \) is not closed.  Hence it must be that \( x \near X \setminus \{x\} \).  Thus \( \{x\} \nll \{x\} \).  So if there is a set \( A \subseteq X \) such that \( A \ll \{x\} \) then \( A = \emptyset \).  Therefore, (D6) is not satisfied.
+\end{proof}
+
+\begin{example}
+	Let \( (X,\ll) \) be a proximity space.  Then \( (\RO(X),\ll) \) is a de Vries algebra.
+\end{example}
+\begin{proof}
+	It is enough to check (D6).  Let \( \emptyset \neq U \in \RO(X) \).  Take \( x \in U \).  Since \( U \) is open, \( x \ll U \).  By \ref{llinsertro}, there is a \( V \in \RO(X) \) such that \( x \ll V \ll U \).
+\end{proof}
+
+\begin{remark}
+	By \ref{PXdev}, it is clear that a de Vries algebra and a proximity space \( (X,\sll) \) are similar structures.  As a result, they have many of the same properties.
+\end{remark}
+
+\begin{proposition}
+	\label{devextend}
+	Let \( B \) be a de Vries algebra.  For all \( a,b,c,d \in B \),
+	\[ a \leq b \dev c \leq d \implies a \dev d \]
+\end{proposition}
+\begin{proof}
+	The proof is analogous to \ref{llextend}.
+\end{proof}
+
+\begin{proposition}
+	\label{devwedgevee}
+	Let \( B \) be a de Vries algebra and \( \{ a_i \}_{i=1}^n \), \( \{ b_i \}_{i=1}^n \) finite families of elements of \( B \) such that \( a_i \dev b_i \) for \( i=1, \dots, n \).
+	\begin{enumerate}[label={(\arabic*)},ref={\theproposition(\arabic*)}]
+		\item \label{devwedge}
+			\( \bigwedge_{i=1}^n a_i \dev \bigwedge_{i=1}^n b_i \)
+		\item \label{devvee}
+			\( \bigvee_{i=1}^n a_i \dev \bigvee_{i=1}^n b_i \)
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	The proof is analogous to \ref{llintun}.
+\end{proof}
+
+\begin{definition}
+	Let \( B \) be a de Vries algebra.
+	\begin{itemize}
+		\item A \defn{round filter} on \( B \) is a filter \( \cF \) on \( B \) such that for all \( a \in \cF \), there is a \( b \in \cF \) such that \( b \dev a \).
+		\item A maximal round filter on \( B \) is called an \defn{end}.  We denote the set of all ends on \( B \) as \( \End(B) \).
+		\item The \defn{round hull} of a filter \( \cF \) on \( B \) is \( \rnd(\cF) = \{ a \in B: \exists b \in \cF, b \dev a \} \).
+	\end{itemize}
+\end{definition}
+
+\begin{proposition}
+	Let \( B \) be a de Vries algebra.
+	\begin{enumerate}[label={(\arabic*)},ref={\theproposition(\arabic*)}]
+		\item Every round filter on \( B \) is contained in an end.
+		\item A round filter \( \cF \) on \( B \) is an end if and only if for all \( a,b \in B \), \( a \dev b \) implies \( -a \in \cF \) or \( b \in \cF \).
+		\item For a filter \( \cF \) on \( B \), \( \rnd(\cF) \) is a round filter and \( \rnd(\cF) \subseteq \cF \).
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	The proofs are analogous to \ref{roundinend}, \ref{endllin}, and \ref{rndround} respectively.
+\end{proof}
+
+\begin{definition}
+	For \( a \in B \), define \( \o(a) = \{ \cE \in \End(B): a \in \cE \} \)
+\end{definition}
+
+\begin{proposition}
+	Let \( B \) be a de Vries algebra.  For all \( a,b \in B \),
+	\begin{enumerate}[label={(\arabic*)},ref={\theproposition(\arabic*)}]
+		\item \label{devoempty}
+			\( a = 0 \iff \o(a) = \emptyset \)
+		\item \label{devosubset}
+			\( a \leq b \implies \o(a) \subseteq \o(b) \)
+		\item \label{devoint}
+			\( \o(a) \cap \o(b) = \o(a \wedge b) \)
+		\item \label{devoun}
+			\( \o(a) \cup \o(b) \subseteq \o(a \vee b) \)
+		\item \label{devo}
+			\( a \dev b \implies \End(B) \setminus \o(b) \subseteq \o(-a) \)
+		\item \label{devobase}
+			\( \{ \o(a): a \in B \} \) is a base for a compact Hausdorff topology on \( \End(B) \).
+		\item \label{devocomp}
+			\( \o(-a) = \End(B) \setminus \cl(\o(a)) \)
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	The proofs are analogous to \ref{oempty}; \ref{osubset}; \ref{oun}; \ref{llo}; \ref{Endbase} and \ref{endcptt}; and \ref{ocomp} respectively.
+\end{proof}
+
+%%%%%De Vries Morphisms
+
+\begin{definition}
+	Let \( A,B \) be de Vries algebras.  A function \( f:A \to B \) is a \defn{de Vries morphism} if for all \( a,b \in A \),
+	\begin{enumerate}
+		\item[(M1)] \( f(0) = 0 \)
+		\item[(M2)] \( f(a \wedge b) = f(a) \wedge f(b) \)
+		\item[(M3)] \( a \dev b \implies -f(-a) \dev f(b) \)
+		\item[(M4)] \( f(a) = \bigvee_{b \dev a} f(b) \)
+	\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+	Let \( A,B \) be de Vries algebras and \( f:A \to B \) a de Vries morphism.  For all \( a,b \in A \),
+	\begin{enumerate}[label={(\arabic*)},ref={\theproposition(\arabic*)}]
+		\item \label{m11}
+			\( f(1) = 1 \)
+		\item \label{minverse}
+			\( f(a) \leq -f(-a) \)
+		\item \label{mdev}
+			\( a \dev b \implies f(a) \dev f(b) \)
+		\item \label{mleq}
+			\( a \leq b \implies f(a) \leq f(b) \)
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\leavevmode
+	\begin{enumerate}
+		\item
+			By (D1), \( 0 \dev 0 \).  By (M3), \( -f(-0) \dev f(0) \).  So \( -f(1) \dev f(0) \).  By (M1), \( -f(1) \dev 0 \) and by (D3), \( -0 \dev f(1) \).  Hence \( 1 \dev f(1) \).  By (D2), \( 1 \leq f(1) \) and thus \( f(1) = 1 \).
+		\item
+			Note that \( 0 = f(0) = f(a \wedge -a) \).  By (M2), \( f(a \wedge -a) = f(a) \wedge f(-a) \).  Hence \( f(a) \leq -f(-a) \).
+		\item
+			Suppose \( a \dev b \).  By (M1), \( f(0) = 0 \).  But \( f(0) = f(a \wedge -a) = f(a) \wedge f(-a) \) by (M2).  Therefore, \( f(a) \leq -f(-a) \).  Since \( a \dev b \), by (M3), \( -f(-a) \dev f(b) \).  So we have \( f(a) \leq -f(-a) \dev f(b) \).  By \ref{devextend}, \( f(a) \dev f(b) \).
+		\item
+			Suppose \( a \leq b \).  Then \( a \wedge b = a \).  So \( f(a \wedge b) = f(a) \).  By (M2), \( f(a) \wedge f(b) = f(a) \).  So \( f(a) \leq f(b) \).
+	\end{enumerate}
+\end{proof}
+
+\begin{remark}
+	Let \( (A,\dev) \), \( (B,\dev) \) be de Vries algebras and \( f:A \to B \) a de Vries morphism.  In general, \( f(-a) \neq -f(a) \).  Therefore, \( f \) may not be a Boolean algebra homomorphism.
+\end{remark}
+
+\begin{remark}
+	Let \( A,B,C \) be de Vries algebras and \( f:A \to B \), \( g:B \to C \) de Vries morphisms.  If we consider morphism composition as normal function composition, it is clear that \( g \circ f \) satisfies \( (M1) \) through \( (M3) \).  It is not necessarily true, however, that \( g \circ f \) satisfies \( (M4) \).
+\end{remark}
+
+\begin{definition}
+	\label{mast}
+	Let \( A,B,C \) be de Vries algebras and \( f:A \to B \), \( g:B \to C \) de Vries morphisms.  Define
+	\[ (g \ast f)(a) = \bigvee_{b \dev a} (g \circ f)(b) \]
+\end{definition}
+
+\begin{proposition}
+	\label{mcompmorphism}
+	Let \( A,B,C \) be de Vries algebras and \( f:A \to B \), \( g:B \to C \) de Vries morphisms.  Then \( g \ast f: A \to C \) is a de Vries morphism.
+\end{proposition}
+\begin{proof}
+	We will verify the de Vries morphism axioms.
+	
+	\prooflabel{(M1)}
+		Note that \( (g \ast f)(0) = \bigvee_{a \dev 0} (g \circ f)(a) \).  But \( a \dev 0 \) implies \( a = 0 \).  So \( (g \ast f)(0) = (g \circ f)(0) \) and \( (g \circ f)(0) = g(f(0)) = g(0) = 0 \) by (M1).
+	
+	\prooflabel{(M2)}
+		Let \( a,b \in A \).  Then \( (g \ast f)(a \wedge b) = \bigvee_{c \dev a \wedge b} (g \circ f)(c) \).  By (D4), \( c \dev a \wedge b \) if and only if \( c \dev a \) and \( c \dev b \).  So
+		\begin{align*}
+			\bigvee_{c \dev a \wedge b} (g \circ f)(c) &= \bigvee_{c \dev a} (g \circ f)(c) \wedge \bigvee_{c \dev b} (g \circ f)(c) \\
+			&= (g \ast f)(a) \wedge (g \ast f)(b)
+		\end{align*}
+		
+		Therefore, \( (g \ast f)(a \wedge b) = (g \ast f)(a) \wedge (g \ast f)(b) \).
+	
+	\prooflabel{(M3)}
+		Suppose \( a \dev b \).  By (D5), there exist \( c,d \in A \) such that \( a \dev c \dev d \dev b \).  By (D3), \( -d \dev -c \dev -a \).  By \ref{mdev}, \( (g \circ f)(-d) \dev (g \circ f)(-c) \).  Since \( -c \dev -a \), \( (g \circ f)(-d) \dev \bigvee_{e \dev -a} (g \circ f)(e) \).  By (D3), \( -\bigvee_{e \dev -a} (g \circ f)(e) \dev (g \circ f)(d) \).  Since \( d \dev b \), \( -\bigvee_{e \dev -a} (g \circ f)(e) \dev \bigvee_{e \dev b} (g \circ f)(e) \).  Hence \( -(g \ast f)(-a) \dev (g \ast f)(b) \).
+		
+	\prooflabel{(M4)}
+		Let \( a \in A \).  By (D5), for all \( b \in A \) such that \( b \dev a \), there is a \( c \in A \) such that \( b \dev c \dev a \).  Therefore, \( \bigvee_{b \dev a} (g \circ f)(b) \leq \bigvee_{c \dev a} \bigvee_{b \dev c} (g \circ f)(b) \).  Hence \( (g \ast f)(a) \leq \bigvee_{c \dev a} (g \ast f)(c) \).
+		
+		For inequality in the other direction, note that if \( b \dev a \) and \( c \dev b \) then \( c \dev a \).  Therefore, \( \bigvee_{c \dev b} (g \circ f)(c) \leq \bigvee_{c \dev a} (g \circ f)(c) \).  Hence \( (g \ast f)(b) \leq (g \ast f)(a) \) for all \( b \dev a \).  So \( \bigvee_{b \dev a} (g \ast f)(b) \leq (g \ast f)(a) \).
+\end{proof}
+
+\begin{proposition}
+	Let \( A,B,C,D \) be de Vries algebras and \( f:A \to B \), \( g:B \to C \), \( h:C \to D \) de Vries morphisms.  For \( a,b \in A \),
+	\begin{enumerate}[label={(\arabic*)},ref={\theproposition(\arabic*)}]
+		\item \label{mastleqcirc}
+			\( (g \ast f)(a) \leq (g \circ f)(a) \)
+		\item \label{mdevcircleqast}
+			\( a \dev b \implies (g \circ f)(a) \leq (g \ast f)(b) \)
+		\item \label{mdevcompflip}
+			\( a \dev b \implies ((h \ast g) \circ f)(a) \leq (h \circ (g \ast f))(b) \)
+		\item \label{mdevcircleqastcomp}
+			\( a \dev b \implies (h \circ (g \ast f))(a) \leq ((h \ast g) \ast f)(b) \)
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\leavevmode
+	\begin{enumerate}		
+		\item
+			If \( a = 0 \), it is clear from (M1) and \ref{mcompmorphism} that \( (g \ast f)(a) = 0 \) and \( (g \circ f)(a) = 0 \).
+			
+			Suppose \( a \neq 0 \).  By (D6), there is a \( c \in A \) such that \( c \dev a \).  By \ref{mdev}, \( f(c) \dev f(a) \) and thus \( (g \circ f)(c) \dev (g \circ f)(a) \).  By (D2), \( (g \circ f)(c) \leq (g \circ f)(a) \).  So \( (g \ast f)(a) = \bigvee_{c \dev a} (g \circ f)(c) \leq (g \circ f)(a)  \).
+			
+		\item
+			Suppose \( a \dev b \).  By (D5), there is a \( c \in A \) such that \( a \dev c \dev b \).  By (D2), \( a \leq c \).  Applying \ref{mleq} twice, \( (g \circ f)(a) \leq (g \circ f)(c) \).  Hence \( (g \circ f)(a) \leq \bigvee_{d \dev b} (g \circ f)(d) = (g \ast f)(b) \).
+			
+		\item
+			Suppose \( a \dev b \).  By \ref{mastleqcirc},
+			\begin{align*}
+				((h \ast g) \circ f)(a) &= (h \ast g)(f(a)) \\
+				&\leq (h \circ g)(f(a)) \\
+				&= (h \circ (g \circ f))(a)
+			\end{align*}
+			Since \( a \dev b \), by \ref{mdevcircleqast}, \( (g \circ f)(a) \leq (g \ast f)(b) \).  By \ref{mleq}, \( (h \circ (g \circ f))(a) \leq (h \circ (g \ast f))(b) \).
+		\item
+			Suppose \( a \dev b \).  By (D5), there is a \( c \in A \) such that \( a \dev c \dev b \).  By \ref{mastleqcirc}, \( (g \ast f)(a) \leq (g \circ f)(a) \).  By \ref{mleq},
+			\begin{align*}
+				(h \circ (g \ast f))(a) &\leq (h \circ (g \circ f))(a) \\
+				&= (h \circ g)(f(a))
+			\end{align*}	
+			
+			Since \( a \dev c \) then \( f(a) \dev f(c) \) by \ref{mdev}.  So by \ref{mdevcircleqast},
+			\begin{align*}
+				(h \circ g)(f(a)) &\leq (h \ast g)(f(c)) \\
+				&= ((h \ast g) \circ f)(c)
+			\end{align*}
+			
+			As \( c \dev b \), applying \ref{mdevcircleqast} again,
+			\[ ((h \ast g) \circ f)(c) \leq ((h \ast g) \ast f)(b) \]
+			
+			Therefore, we have \( (h \circ (g \ast f))(a) \leq ((h \ast g) \ast f)(b) \).
+	\end{enumerate}
+\end{proof}
+
+\begin{theorem}
+	The class of de Vries algebras with de Vries morphisms and composition \( \ast \) as defined in \ref{mast} is a category.  We will denote this category as \( \DeV \).
+\end{theorem}
+\begin{proof}
+	We only need to verify two things: that the composition of morphisms is associative and that each object has an identity morphism.
+
+	First, we will show associativity of composition.  Let \( A,B,C,D \) be de Vries algebras and \( f:A \to B, g:B \to C, h:C \to D \) be de Vries morphisms.  We will show that \( h \ast (g \ast f) = (h \ast g) \ast f \).
+	
+	For \( a = 0 \), it is clear from \ref{mcompmorphism} and (M1) that \( (h \ast (g \ast f))(a) = 0 \) and \( ((h \ast g) \ast f)(a) = 0 \).
+	
+	Suppose \( a \neq 0 \).
+	
+	First we will show that \( (h \ast (g \ast f))(a) \leq ((h \ast g) \ast f)(a) \).
+
+	By \ref{mdevcircleqastcomp}, for all \( b \in B \) such that \( b \dev a \),
+	\[ (h \circ (g \ast f))(b) \leq ((h \ast g) \ast f)(a) \]
+	
+	So we have
+	\begin{align*}
+		(h \ast (g \ast f))(a) &= \bigvee_{b \dev a} (h \circ (g \ast f))(b)\\
+		&\leq ((h \ast g) \ast f)(a)
+	\end{align*}
+
+	Now we will show that \( ((h \ast g) \ast f)(a) \leq (h \ast (g \ast f))(a) \).
+	
+	By (D6), there is a \( b \in A \) such that \( 0 \neq b \dev a \).  By (D5), there is a \( c \in A \) such that \( b \dev c \dev a \).  By \ref{mdevcompflip},
+	\[ ((h \ast g) \circ f)(b) \leq (h \circ (g \ast f))(c) \]
+	
+	Since \( c \dev a \),
+	\begin{align*}
+		(h \circ(g \ast f))(c) &\leq \bigvee_{d \dev a} (h \circ (g \ast f))(d) \\
+		&= (h \ast (g \ast f))(a)
+	\end{align*}
+	
+	So we have, for all \( b \in A \) such that \( b \dev a \),
+	\[ ((h \ast g) \circ f)(b) \leq (h \ast (g \ast f))(a) \]
+	
+	Therefore
+	\begin{align*}
+		((h \ast g) \ast f)(a) &= \bigvee_{b \dev a} ((h \ast g) \circ f)(b) \\
+		&\leq (h \ast (g \ast f))(a)
+	\end{align*}
+	
+	Now, let \( A,B \) be de Vries algebras and \( f \in \mor(A,B) \).  Define \( 1_A: A \to A \) as \( 1_A = \id_A \).  It is trivial to show that axioms (M1), (M2), and (M3) are satisfied.  That (M4) is satisfied follows directly from \ref{devveeunder}.  Therefore, \( 1_B \) is indeed a de Vries morphism.  Also, it is clear that \( 1_A \circ f = f = f \circ 1_B \).  Therefore, \( 1_A \) is an identity morphism.	
+	
+	For any \( a \in A \),
+	\begin{align*}
+		(f \ast 1_A)(a) &= \bigvee_{b \dev a} (f \circ 1_A)(b) \\
+		&= \bigvee_{b \dev a} f(b)
+	\end{align*}
+	
+	It follows from (M4) that
+	\[ (f \ast 1_A)(a) = f(a) \]
+	
+	Similarly,
+	\begin{align*}
+		(1_B \ast f)(a) &= \bigvee_{b \dev a} (1_B \circ f)(b) \\
+		&= \bigvee_{b \dev a} f(b) \\
+		&= f(a)
+	\end{align*}
+		
+	Therefore, \( 1_A \) is an identity morphism.
+\end{proof}

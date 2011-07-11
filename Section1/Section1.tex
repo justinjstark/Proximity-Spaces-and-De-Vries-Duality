@@ -1,0 +1,151 @@
+\section{Categories}
+\label{categories}
+
+\begin{definition}
+	A \defn{category} \( \fC \) consists of three entities:
+	\begin{enumerate}
+		\item A class of objects denoted \( \obj{\fC} \).
+		\item A class of mappings between objects of \( \fC \) known as morphisms.  For \( A,B \in \obj{\fC} \), we denote the morphisms from \( A \) to \( B \) as \( \mor(A,B) \).
+		\item A binary operation \( \circ \) such that for any \( A,B,C \in \obj{\fC} \), the operator \( \circ \) maps \( \mor(A,B) \times \mor(B,C) \) to \( \mor(A,C) \) and satisfies the following:
+		\begin{enumerate}
+			\item (Associativity) For any \( A,B,C,D \in \obj{\fC} \), \( f \in \mor(A,B) \), \( g \in \mor(B,C) \), and \( h \in \mor(C,D) \), \( h \circ ( g \circ f ) = (h \circ g) \circ f \).  In other words, the following commutes.
+				\onecolumn{\xymatrix{
+					A \ar[r]^{g \circ f} \ar@/_/[dr]_f \ar@{}[dr]^\circ & C \ar@/^/[dr]^h \ar@{}[dr]_\circ \\
+					& B \ar[u]_g \ar[r]_{h \circ g} & D
+				}}
+			\item (Identity) For any \( A,B \in \obj{\fC} \) there is a morphism \( 1_A \in \mor(A,A) \) and a morphism \( 1_B \in \mor(B,B) \) such that for any \( f \in \mor(A,B) \), \( 1_B \circ f = f = f \circ 1_A \).
+		\end{enumerate}
+	\end{enumerate}
+\end{definition}
+
+Henceforth, when we say ``the category of \( A \) and \( B \)" we mean the category whose objects are the elements in \( A \) and whose morphisms between those objects are the elements in \( B \).  Unless otherwise stated, we will assume that composition is normal function composition.
+
+\begin{examples}
+	The following are examples of categories.
+	\begin{enumerate}
+		\item \( \SET \) The category of sets and functions.
+		\item \( \CPTT \) The category of compact Hausdorff spaces and continuous functions.
+		\item \( \BA \) The category of Boolean algebras and Boolean algebra homomorphisms.
+		\item \( \TYCH \) The category of Tychonoff spaces and continuous functions.
+		\item \( \ZDCPTT \) The category of zero dimensional compact Hausdorff spaces and continuous functions.
+	\end{enumerate}
+\end{examples}
+
+\begin{definition}
+	Let \( \fB \) and \( \fC \) be categories.  A \defn{covariant functor} \respdefn{contravariant functor} \( F \) is a correspondence from \( \fB \) to \( \fC \) such that
+	\begin{enumerate}
+		\item For each \( B \in \obj{\fB} \) there is a unique \( F(B) \in \obj{\fC} \)
+		\item For \( A,B \in \obj{\fB} \) and \( f \in \mor(A,B) \), there is a unique \( F(f) \in \mor(F(A),F(B)) \) \sresp{\( F(f) \in \mor(F(B),F(A)) \)}.
+		\item For all \( B \in \obj{\fB} \), \( F(1_{B}) = 1_{F(B)} \)
+		\item For all \( A,B,C \in \obj{\fB} \), \( f \in \mor(A,B) \), and \( g \in \mor(B,C) \), \( F(g \circ f) = F(g) \circ F(f) \) \sresp{\( F(g \circ f) = F(f) \circ F(g) \)}.  In other words, the following respective diagram commutes.
+				\threecolumn
+				{
+					\xymatrix
+					{
+						A \ar[r]^f \ar@/_/[dr]_{g \circ f} \ar@{}[dr]^\circ & B \ar[d]^g \\
+						& C
+					}
+				}
+				{
+					\xymatrix
+					{
+						F(A) \ar[r]^{F(f)} \ar@/_/[dr]_{F(g \circ f)} \ar@{}[dr]^\circ & F(B) \ar[d]^{F(g)} \\
+						& F(C)
+					}
+				}
+				{
+					{\respcolor
+						\xymatrix
+						{
+							F(A) \ar@{}[dr]^\circ & F(B) \ar[l]_{F(f)} \\
+							& F(C) \ar[u]_{F(g)} \ar@/^/[ul]^{F(g \circ f)}
+						}
+					}
+				}
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}
+	Let \( \fB \) and \( \fC \) be categories and \( F, G \) be covariant functors \resp{contravariant functors} from \( \fB \) to \( \fC \).  A correspondence \( \eta: F \to G \) is a \defn{natural transformation} if it maps each \( A \in \obj{\fB} \) to a unique \( \eta(A) \in \mor(F(A), G(A)) \) such that for any \( B \in \obj{\fB} \) and \( f \in \mor(A, B) \), \( \eta(B) \circ F(f) = G(f) \circ \eta(A) \) \sresp{\( \eta(A) \circ F(f) = G(f) \circ \eta(B) \)}.  In other words, the following respective diagram commutes.
+\end{definition}
+
+\threecolumn
+{
+	\xymatrix
+	{
+		A \ar[d]_f \\
+		B
+	}
+}
+{
+	\xymatrix
+	{
+		F(A) \ar[r]^{\eta(A)} \ar[d]_{F(f)} \ar@{}[dr]|{\circ}	&	G(A) \ar[d]^{G(f)} \\
+		F(B) \ar[r]_{\eta(B)} 																	& G(B)
+	}
+}
+{
+	{\respcolor
+		\xymatrix
+		{
+			F(A) \ar[r]^{\eta(A)} \ar@{}[dr]|{\circ} 	& G(A)								\\
+			F(B) \ar[r]_{\eta(B)} \ar[u]^{F(f)}				& G(B) \ar[u]_{G(f)}
+		}
+	}
+}
+
+\begin{example}
+	Consider the category \( \TYCH \).  For \( X \in \obj{\TYCH} \), let \( \beta{X} \) be the Stone-Cech compactification of \( X \).  For \( X,Y \in \obj{\TYCH} \) and \( f \in \mor(X,Y) \), let \( \beta{f} \) be the continuous extension of \( f \) from \( \beta{X} \) to \( \beta{Y} \).  Let \( e(X): X \to \beta{X} \) be the inclusion map.  Then \( e: 1_{\TYCH} \to \beta \) is a natural transformation and we have the following commutative diagram.
+	\onecolumn{\xymatrix{
+		X \ar[r]^{e(X)} \ar[d]_{f} \ar@{}[dr]|\circ	& \beta{X} \ar[d]^{\beta(f)} \\
+		Y \ar[r]_{e(Y)}							& \beta{Y}
+	}}
+\end{example}
+
+\begin{definition}
+	Let \( \fC \) be a category and \( A,B \in \obj{\fC} \).  The morphism \( f \in \mor(A,B) \) is an \defn{isomorphism} if there is a \( g \in \mor(B,A) \) such that \( f \circ g = 1_B \) and \( g \circ f = 1_A \).
+\end{definition}
+
+\begin{definition}
+	Let \( \fB \) and \( \fC \) be categories and \( F, G \) be functors (either covariant or contravariant) from \( \fB \) to \( \fC \).  A natural transformation \( \eta:F \to G \) is a \defn{natural isomorphism} if for all \( B \in \obj{\fB} \), \( \eta(B) \) is an isomorphism.
+\end{definition}
+
+If a natural isomorphism exists between two categories \( \fB \) and \( \fC \), we write \( \fB \cong \fC \).
+
+\begin{definition}
+	Two categories \( \fB \) and \( \fC \) are said to be \defn{equivalent} \respdefn{dually equivalent} if there exist covariant functors \sresp{contravariant functors} \( F \) from \( \fB \) to \( \fC \) and \( G \) from \( \fC \) to \( \fB \) as well as natural isomorphisms \( \eta: F \circ G \to 1_\fC \) and \( \zeta: 1_\fB \to G \circ F \).
+\end{definition}
+
+When two categories are dually equivalent, we will often say the two categories are dual or have duality.
+
+%The following example which is a result of Marshall Stone \cite{stone}.
+
+\begin{example}[Stone Duality \cite{stone}]
+	For \( B \in \obj{\BA} \), let \( S(B) \) denote the Stone space of \( B \).  For \( A,B \in \obj{\BA} \) and \( f \in \mor(A,B) \), define \( S(f):S(B) \to S(A) \) by \( S(f)(\cU) = \{ a \in A: f(a) \in \cU \} \).  The mapping \( S \) is a contravariant functor from \( \BA \) to \( \ZDCPTT \).
+	
+	For \( X \in \obj{\ZDCPTT} \), the clopen sets of \( X \), \( \Cl(X) \), form a Boolean algebra.  For \( X,Y \in \obj{\ZDCPTT} \) and \( f \in \mor(X,Y) \), define \( \Cl(f): \Cl(Y) \to \Cl(X) \) by \( \Cl(f)(U) = f^\leftarrow[U] \).  The mapping \( \Cl \) is a contravariant functor from \( \ZDCPTT \) to \( \BA \).
+	
+	Define \( \eta:A \to \Cl(S(A)) \) by \( \eta_A(a) = \{ \cU \in S(A): a \in \cU \} \) and \( \zeta_X:S(\Cl(X)) \to X \) by \( \zeta_X(\cU) = \bigcap{\cU} \).
+	
+	For any \( A \in \obj{\BA} \), \( \eta_A \) is a Boolean isomorphism and for any \( X \in \obj{\ZDCPTT} \), \( \zeta_X \) is a homeomorphism. 
+	
+	For \( A,B \in \obj{\BA} \); \( f \in \mor(A,B) \); \( X,Y \in \obj{\ZDCPTT} \); and \( g \in \mor(X,Y) \), we have the following diagram.
+	
+	\twocolumn
+	{
+		\xymatrix
+		{
+			A \ar[r]^{\eta_A} \ar[d]_f \ar@{}[dr]|{\circ}	&	**[r] \Cl(S(A)) \ar[d]^{\Cl(S(f))} \\
+			B \ar[r]_{\eta_B} 														& **[r] \Cl(S(B))
+		}
+	}
+	{
+		\xymatrix
+		{
+			**[l] S(\Cl(X)) \ar[r]^{\zeta_X} \ar[d]_{S(\Cl(g))} \ar@{}[dr]|{\circ}	&	X \ar[d]^g \\
+			**[l] S(\Cl(Y)) \ar[r]_{\zeta_Y} 																				& Y
+		}
+	}
+	
+	These diagrams commute so \( \eta \) and \( \zeta \) are natural isomorphisms.  Therefore, \( \BA \) and \( \ZDCPTT \) are dually equivalent.
+\end{example}

@@ -1,0 +1,27 @@
+\section{Introduction}
+
+In the early 1940s, Samuel Eilenberg and Saunders Mac Lane developed category theory as a way to relate different areas of mathematics.  In particular, they were interested in the relation between topological and algebraic structures.  Eilenberg and Mac Lane presented their work in their 1945 paper ``General Theory of Natural Equivalences"~\cite{eilenbergmaclane}.  In Section~\ref{categories}, we describe some of the basic ideas of category theory, setting the stage for us to prove the dual equivalence of two categories.
+
+We switch our attention in Section~\ref{proximities} to the idea of proximity spaces.  Riesz~\cite{riesz} started the discussion of proximities in 1908 with his ``theory of enchainment".  In 1950, Efremovi\v{c}~\cite{efremovic} rediscovered the idea and developed a set of axioms for two subsets to be ``near".  Such a relation on a set \( X \) is called a proximity (sometimes called an EF-proximity) and the set \( X \) along with the proximity is called a ``proximity space".  This notion of nearness is a natural generalization of metric space theory, as can be seen in the relevant examples in Section~\ref{proximities}.  Efremovi\v{c} went further to show that a proximity on a set induces a topology.  We continue, in Section~\ref{proximities}, to develop the fundamental properties of proximities on topological spaces.  Toward the end of the section, we examine the correlation of a proximity on a space to the compactifications of the space. \cite{naimpally}
+
+In 1939, Alexandroff \cite{alexandroff} developed the idea of ``ends" while studying extensions of topological spaces.  He also asked the question, ``Which topological spaces admit a separated proximity compatible with the given topology?"  Smirnov \cite{smirnov}, in 1952, used the ends of Alexandroff to obtain a compactification of a Tychonoff space.  This compactification is often referred to as the ``Smirnov Compactification" and the development leading up to it the ``Smirnov Construction".  This construction is the heart of Section~\ref{proxfilters}.  Smirnov also gave an answer to Alexandroff's query with ``Smirnov's Compactification Theorem", given in this section.  We use the remainder of Section~\ref{proxfilters} to prove another famous result of Smirnov known as ``Smirnov's Theorem" which states there is a bijection between the compactifications of a Tychonoff space and the proximities on that space ``compatible" with the topology on the space.
+
+In Sections~\ref{devries} and \ref{devriesduality}, we trace the Ph.D. thesis of de Vries \cite{devries}.  De Vries developed the idea of ``complete compingent algebras", which we call ``de Vries algebras".  These algebras are complete Boolean algebras with an added structure.  De Vries algebras along with a set of mappings between them, which we call ``de Vries morphisms", form a category.  In Section~\ref{devriesduality}, we use the results of Section~\ref{categories} to prove de Vries Duality Theorem, showing that the category \( \CPTT \) of compact Hausdorff spaces and continuous functions is dually equivalent to the category of de Vries algebras and de Vries morphisms.
+
+We will use the following notations throughout this paper.
+\begin{center}
+\begin{tabular}{rl}
+	\( \cP(X) \)	& The power set of \( X \)\\
+	\( \tau(X) \)	& The topology on the space \( X \)\\
+	\( \cl{A} \)	& The closure of \( A \)\\
+	\( \int{A} \)	& The interior of \( A \)\\
+	\( \id_X \)		& The identity function on \( X \)\\
+	\( f|_X \)		& The restriction of \( f \) to \( X \)\\
+	\( \C(X) \)		& The set of continuous functions from \( X \) to \( [0,1] \)\\
+	\( \C(X,Y) \)	& The set of continuous functions from \( X \) to \( Y \)\\
+	\( \a\cF \)		& The adherent points of the filter \( \cF \)\\
+	\( \cN(p) \)	& The set of all neighborhoods of \( p \)\\
+	\( \RO(X) \)	& The set of all regular open subsets of \( X \)\\
+	\( \Cl{X} \)	& The set of all clopen subsets of \( X \)\\
+\end{tabular}
+\end{center}

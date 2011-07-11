@@ -1,0 +1,199 @@
+\documentclass[12pt]{amsart}
+
+\usepackage{fixltx2e} %Use this package and \( \) for best results
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{verbatim}
+\usepackage{import}
+\usepackage[all]{xy}
+\usepackage{color}
+\usepackage{centernot}
+\usepackage{hyperref}
+
+
+%Theorems & Environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{question}[theorem]{Additional questions}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{examples}[theorem]{Examples}
+
+\theoremstyle{remark}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{remark}[theorem]{Remark}
+
+\setcounter{section}{-1}
+
+%Basic Commands
+\renewcommand{\implies}{\Rightarrow}
+\renewcommand{\iff}{\Leftrightarrow}
+\renewcommand{\emptyset}{\varnothing}
+%\renewcommand{\epsilon}{\varepsilon}
+
+%Character Commands
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbE}{\mathbb{E}}
+\newcommand{\bbQ}{\mathbb{Q}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\fA}{\mathfrak{A}}
+\newcommand{\fB}{\mathfrak{B}}
+\newcommand{\fC}{\mathfrak{C}}
+\newcommand{\fD}{\mathfrak{D}}
+
+%Math Relations and Operators
+\newcommand{\near}{\mathbin{\delta}}	%near
+\newcommand{\nnear}{\mathrel{\centernot\delta}}	%not near
+\newcommand{\snear}{\mathord{\delta}}	%symbolic near
+\newcommand{\nll}{\mathrel{\centernot\ll}}	%not ll
+\newcommand{\neare}{\mathrel{\delta_\text{E}}}	%near on End(X)
+\newcommand{\nneare}{\mathrel{\centernot{\delta}}_\text{E}}	%not near on End(X)
+\newcommand{\sneare}{\mathord{\delta}_\text{E}}
+\newcommand{\sll}{\mathord{\ll}}	%symbolic near
+\newcommand{\lle}{\mathrel{\ll_\text{E}}}	%ll on End(X)
+\newcommand{\slle}{\mathord{\ll_\text{E}}}	%symbolic ll on End(X)
+\newcommand{\nell}{\mathrel{\centernot{\ll}}_\text{E}}	%not ll on End(X)
+\newcommand{\nearr}[1]{\mathrel{\mathord{\delta}|_#1}}	%Fix spacing issues for a proximity restricted to a subspace
+\newcommand{\nnearr}[1]{\mathrel{\mathord{\centernot{\delta}}|_#1}}
+\newcommand{\dev}{\ll}
+\newcommand{\sdev}{\sll}
+\DeclareMathOperator{\obj}{ob}
+\DeclareMathOperator{\mor}{M}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\RO}{\mathcal{RO}}
+\renewcommand{\int}{\operatorname{int}}	%Cannot DeclareMathOperator a defined command
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\Cl}{Cl}
+\renewcommand{\a}{\operatorname{a}}
+\DeclareMathOperator{\C}{C}
+\DeclareMathOperator{\id}{id}
+\renewcommand{\o}{\operatorname{o}}
+\DeclareMathOperator{\rnd}{rnd}
+
+%Math Text Shortcuts
+\newcommand{\textand}{\text{ and }}
+\newcommand{\textor}{\text{ or }}
+\newcommand{\textst}{\text{ s.t. }}
+\newcommand{\textiff}{\text{ iff }}
+
+%Category Commands
+\newcommand{\CPTT}{\bf{CPT}_\mathbf{2}}
+\newcommand{\DeV}{\bf{DeV}}
+\newcommand{\KHaus}{\bf{KHaus}}
+\newcommand{\TYCH}{\bf{TYCH}}
+\newcommand{\BA}{\bf{BA}}
+\newcommand{\ZDCPTT}{\bf{ZDCPT}_\mathbf{2}}
+\newcommand{\SET}{\bf{SET}}
+
+\definecolor{darkred}{rgb}{0.3,0.1,0.1}
+\definecolor{darkblue}{rgb}{0.1,0.1,0.3}
+\definecolor{darkgreen}{rgb}{0.1,0.3,0.1}
+
+\newcommand{\defn}[1]{{\color{darkred}\bf #1}}
+\newcommand{\mdefn}[1]{\({\color{darkred}\boldsymbol{#1}}\)}
+\newcommand{\respdefn}[2][respectively]{{\color{darkblue}(#1 {\bf #2})}}
+
+\newcommand{\respcolor}{\color{darkblue}}
+\newcommand{\resp}[2][respectively]{{\respcolor(#1 #2)}}
+\newcommand{\sresp}[1]{\resp[resp.]{#1}}
+
+\newcommand{\prooflabel}[1]{#1:}
+
+\renewcommand{\onecolumn}[1]
+{
+	\begin{center}
+		\makebox{#1}
+	\end{center}
+}
+\renewcommand{\twocolumn}[2]
+{
+	\begin{center}
+		\makebox
+		{
+			\begin{minipage}[b]{0.5\linewidth}#1\end{minipage}
+			\hspace{0.3cm}
+			\begin{minipage}[b]{0.5\linewidth}#2\end{minipage}
+		}
+	\end{center}
+}
+\newcommand{\threecolumn}[3]
+{
+	\begin{center}
+		\makebox
+		{
+			\begin{minipage}[b]{0.33\linewidth}#1\end{minipage}
+			\hspace{0.3cm}
+			\begin{minipage}[b]{0.33\linewidth}#2\end{minipage}
+			\hspace{0.3cm}
+			\begin{minipage}[b]{0.33\linewidth}#3\end{minipage}
+		}
+	\end{center}
+}
+
+
+\begin{document}
+
+	\title{Proximity Spaces and De Vries Duality}
+
+	\author{Justin J Stark}
+	\address{Department of Mathematics\\
+		University of Kansas\\
+		405 Snow Hall\\
+		1460 Jayhawk Blvd\\
+		Lawrence, KS 66045-7594, USA}
+	\email{jstark@math.ku.edu}
+	\urladdr{http://www.math.ku.edu/~jstark}
+
+	\thanks{I would like to thank my advisor Dr. Jack Porter, for your setting the foundation for me to write this report and for taking the time to answer my questions and help me through the concepts and proofs of this paper.  Also, thank you to all of the professors at the University of Kansas from whom I have learned a great deal for your affability and your guidance in the past few years.}
+
+	%\subjclass{Primary 03E17; Secondary: 03E35, 03E15}
+	%\date{date, 2010}
+	\date{\today}
+
+	\begin{abstract}
+		We detail the theory of proximity spaces in the direction of compactifications and the Smirnov construction, in which a bijection between compactifications of a Tychonoff space and proximities compatible with this space is given.  We then describe the process of De Vries \cite{devries} by forming a category of ``de Vries algebras" and ``de Vries morphisms" and showing their dual equivalence to the category of compact Hausdorff spaces and continuous functions.  %We then describe the process of de Vries \cite{devries} by defining de Vries algebras and endowing them with morphisms such that they form a category.  Finally, we show that this category is dually equivalent to the category of compact Hausdorff spaces with continuous functions.
+	\end{abstract}
+
+	\maketitle
+	
+	\tableofcontents
+	
+	\subimport{Section0/}{Section0.tex}	%Introduction
+
+	\subimport{Section1/}{Section1.tex}	%Categories
+	
+	\subimport{Section2/}{Section2.tex}	%Proximities
+	
+	\subimport{Section3/}{Section3.tex} %Proximity Filters
+	
+	\subimport{Section4/}{Section4.tex}	%De Vries Algebras
+	
+	\subimport{Section5/}{Section5.tex}	%De Vries Duality
+	
+	
+	\nocite{naimpally,givant,bezhanishvili,devries,smirnov}
+	\bibliographystyle{plain}
+	\bibliography{Bibliography/Bibliography}
+
+\end{document}
